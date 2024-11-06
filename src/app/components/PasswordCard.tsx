@@ -4,9 +4,9 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  Clipboard,
   Alert,
 } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
 import colors from "../../utils/colors/colors";
 
 export type PasswordProps = {
@@ -20,7 +20,7 @@ export default function PasswordCard({
   label,
   login,
   password,
-}: any) {
+}: PasswordProps) {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -34,22 +34,29 @@ export default function PasswordCard({
   return (
     <View style={styles.card}>
       <View style={styles.header}>
-        <View style={styles.box} >
-          <Text style={styles.label}>Label :</Text>
-          {label}
+        <View style={styles.labelContainer}>
+          <Text style={styles.labelTitle}></Text>
+          <Text style={styles.label}>{label}</Text>
         </View>
-        <TouchableOpacity onPress={copyToClipboard}>
-          <Text style={styles.copyButton}>Copiar</Text>
+        <TouchableOpacity onPress={copyToClipboard} style={styles.iconButton}>
+          <Icon name="content-copy" size={20} color={colors.primary} />
+          <Text style={styles.copyButton}></Text>
         </TouchableOpacity>
       </View>
-      {login && <Text style={styles.login}>Login/Username: {login}</Text>}
+      {login && (
+        <View style={styles.loginContainer}>
+          <Text style={styles.loginTitle}/>
+          <Text style={styles.login}>{login}</Text>
+        </View>
+      )}
       <View style={styles.passwordContainer}>
         <Text style={styles.password}>
           {isPasswordVisible ? password : "••••••••"}
         </Text>
-        <TouchableOpacity onPress={togglePasswordVisibility}>
+        <TouchableOpacity onPress={togglePasswordVisibility} style={styles.iconButton}>
+          <Icon name={isPasswordVisible ? "visibility-off" : "visibility"} size={20} color={colors.primary} />
           <Text style={styles.toggleButton}>
-            {isPasswordVisible ? "Ocultar" : "Mostrar"}
+     
           </Text>
         </TouchableOpacity>
       </View>
@@ -59,56 +66,80 @@ export default function PasswordCard({
 
 const styles = StyleSheet.create({
   card: {
-    width: "100%",
-    padding: 10,
-    marginVertical: 5,
-    borderRadius: 8,
-    backgroundColor: colors.danger,
+    width: "95%",
+    padding: 15,
+    marginVertical: 8,
+    borderRadius: 10,
+    backgroundColor: colors.background, 
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 5,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 4,
   },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 5,
+    marginBottom: 10,
   },
-  box:{
-   flex: 1,
-
+  labelContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  labelTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: colors.primary, 
   },
   label: {
-    display: "flex",
     fontSize: 16,
     fontWeight: "bold",
-    color: colors.textPrimary,
+    color: colors.accent,
+  },
+  loginContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  loginTitle: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: colors.textSecondary, 
   },
   login: {
     fontSize: 14,
-    color: colors.secondary,
-    marginBottom: 5,
+    color: colors.secondary, 
   },
   passwordContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: colors.neutral, 
   },
   password: {
-    fontSize: 16,
-    color: colors.success,
+    fontSize: 18,
+    color: colors.primary, 
     letterSpacing: 1.5,
+    fontWeight: "500",
+  },
+  iconButton: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   copyButton: {
-    color: colors.primary,
+    color: colors.primary, 
     fontSize: 14,
     fontWeight: "bold",
+    paddingLeft: 5,
   },
   toggleButton: {
-    color: colors.primary,
+    color: colors.primary, 
     fontSize: 14,
     fontWeight: "bold",
+    paddingLeft: 5,
   },
 });
