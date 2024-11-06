@@ -66,12 +66,12 @@ export default function PasswordCard({
 
 const styles = StyleSheet.create({
   card: {
-    width: "95%",
+    width: "100%",
     padding: 15,
     marginVertical: 8,
     borderRadius: 10,
     backgroundColor: colors.background, 
-    shadowColor: "#000",
+    shadowColor: colors.background_reverse,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 6,
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   login: {
     fontSize: 14,
-    color: colors.secondary, 
+    color: colors.background_reverse, 
   },
   passwordContainer: {
     flexDirection: "row",
@@ -131,13 +131,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   copyButton: {
-    color: colors.primary, 
+    color: colors.background_reverse, 
     fontSize: 14,
     fontWeight: "bold",
     paddingLeft: 5,
   },
   toggleButton: {
-    color: colors.primary, 
+    color: colors.background_reverse, 
     fontSize: 14,
     fontWeight: "bold",
     paddingLeft: 5,
