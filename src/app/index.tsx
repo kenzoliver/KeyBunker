@@ -11,12 +11,19 @@ import colors from "../utils/colors/colors";
 import { PasswordProps } from "../utils/types/passwordType";
 import PasswordCard from "./components/PasswordCard";
 import Search from "./components/Search";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import CreateModalPassword from "./components/CreatePassword";
 
 export default function Home() {
   const [passwords, setPasswords] = useState<PasswordProps[]>([]);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handlePress = () => {
     console.log("Botão pressionado!");
+  };
+
+  const modalCreatePasswordOpen = () => {
+    setModalVisible(true);
   };
 
   const initialPasswordCardItems = [
@@ -97,7 +104,7 @@ export default function Home() {
       setPasswords(initialPasswordCardItems);
     }
     const filteredPasswords = initialPasswordCardItems.filter((item) =>
-      item.label.toLowerCase().includes(name.toLowerCase())
+      item.label.toLowerCase().startsWith(name.toLowerCase())
     );
     console.log(filteredPasswords);
     setPasswords(filteredPasswords);
@@ -110,20 +117,26 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <StatusBar
-        backgroundColor={colors.background}
+        backgroundColor={colors.primary}
         barStyle="light-content"
         translucent={false}
       />
       <View style={styles.header}>
         <Text style={styles.headerText}>Key Bunker</Text>
-        <TouchableOpacity style={styles.button} onPress={handlePress}>
-          <Text style={styles.buttonText}>Nova Senha</Text>
+        <TouchableOpacity onPress={handlePress}>
+          <Icon name="menu" size={30} color={colors.textOnPrimary} />
         </TouchableOpacity>
       </View>
-      <View>
-        <Search passwordFilter={passwordFilter} />
-      </View>
       <ScrollView contentContainerStyle={styles.content}>
+        <Search passwordFilter={passwordFilter} />
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={modalCreatePasswordOpen}
+        >
+          <Text style={styles.buttonText}>Adicionar Senha</Text>
+        </TouchableOpacity>
+
         {passwords.map((passwordCard, idx) => (
           <PasswordCard
             key={idx}
@@ -133,6 +146,7 @@ export default function Home() {
           />
         ))}
       </ScrollView>
+      <CreateModalPassword isCreateModalOpen={modalVisible} onClose={() => setModalVisible(false)} />
     </View>
   );
 }
@@ -149,8 +163,6 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: colors.primary,
     borderBottomWidth: 1,
-    borderBottomEndRadius: 8,
-    borderBottomStartRadius: 8,
   },
   headerText: {
     fontSize: 20,
@@ -158,6 +170,7 @@ const styles = StyleSheet.create({
     color: colors.textOnPrimary,
   },
   content: {
+    gap: 10,
     paddingVertical: 10,
     paddingHorizontal: 16,
   },
@@ -166,12 +179,13 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
   },
   button: {
+    marginTop: 10,
     borderRadius: 10,
     padding: 10,
-    backgroundColor: colors.accent,
+    backgroundColor: colors.background_reverse,
   },
   buttonText: {
-    color: "#fff",
+    color: colors.background,
     fontWeight: "bold",
     textAlign: "center",
   },

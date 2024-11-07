@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import colors from "../../utils/colors/colors";
+import CreateModalPassword from "./CreatePassword";
 
 export type PasswordProps = {
   id?: number;
@@ -39,7 +40,7 @@ export default function PasswordCard({
           <Text style={styles.label}>{label}</Text>
         </View>
         <TouchableOpacity onPress={copyToClipboard} style={styles.iconButton}>
-          <Icon name="content-copy" size={20} color={colors.primary} />
+          <Icon name="content-copy" size={20} color={colors.background_reverse} />
           <Text style={styles.copyButton}></Text>
         </TouchableOpacity>
       </View>
@@ -54,13 +55,15 @@ export default function PasswordCard({
           {isPasswordVisible ? password : "••••••••"}
         </Text>
         <TouchableOpacity onPress={togglePasswordVisibility} style={styles.iconButton}>
-          <Icon name={isPasswordVisible ? "visibility-off" : "visibility"} size={20} color={colors.primary} />
+          <Icon name={isPasswordVisible ? "visibility-off" : "visibility"} size={20} color={colors.background_reverse} />
           <Text style={styles.toggleButton}>
      
           </Text>
         </TouchableOpacity>
       </View>
+      
     </View>
+    
   );
 }
 
@@ -122,13 +125,14 @@ const styles = StyleSheet.create({
   },
   password: {
     fontSize: 18,
-    color: colors.primary, 
+    color: colors.background_reverse, 
     letterSpacing: 1.5,
     fontWeight: "500",
   },
   iconButton: {
     flexDirection: "row",
     alignItems: "center",
+    color: colors.background_reverse, 
   },
   copyButton: {
     color: colors.background_reverse, 

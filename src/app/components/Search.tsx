@@ -1,5 +1,6 @@
 import React from "react";
 import { View, TextInput, StyleSheet } from "react-native";
+import colors from "../../utils/colors/colors";
 
 export default function Search({ passwordFilter }: any) {
   return (
@@ -24,10 +25,10 @@ const styles = StyleSheet.create({
     width: "90%",
     height: 50,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: colors.background_reverse,
     borderRadius: 25,
     paddingLeft: 20,
     fontSize: 16,
-    backgroundColor: "#f7f7f7",
+    backgroundColor: colors.background,
   },
 });
