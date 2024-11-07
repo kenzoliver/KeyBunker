@@ -13,13 +13,15 @@ import PasswordCard from "./components/PasswordCard";
 import Search from "./components/Search";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import CreateModalPassword from "./components/CreatePassword";
+import Drawer from "./components/Drawer";
 
 export default function Home() {
   const [passwords, setPasswords] = useState<PasswordProps[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [drawerVisible, setDrawerVisible] = useState(false);
 
   const handlePress = () => {
-    console.log("Botão pressionado!");
+    setDrawerVisible(true)
   };
 
   const modalCreatePasswordOpen = () => {
@@ -106,7 +108,6 @@ export default function Home() {
     const filteredPasswords = initialPasswordCardItems.filter((item) =>
       item.label.toLowerCase().startsWith(name.toLowerCase())
     );
-    console.log(filteredPasswords);
     setPasswords(filteredPasswords);
   };
 
@@ -149,6 +150,10 @@ export default function Home() {
       <CreateModalPassword
         isCreateModalOpen={modalVisible}
         onClose={() => setModalVisible(false)}
+      />
+      <Drawer
+        isDrawerOpen={drawerVisible}
+        onClose={() => setDrawerVisible(false)}
       />
     </View>
   );
