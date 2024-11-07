@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import {
-  View,
+  Alert,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  StyleSheet,
-  Alert,
+  View,
+  Clipboard,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import colors from "../../utils/colors/colors";
-import CreateModalPassword from "./CreatePassword";
+import CopyModal from "./CopyModal";
 
 export type PasswordProps = {
   id?: number;
@@ -23,13 +24,15 @@ export default function PasswordCard({
   password,
 }: PasswordProps) {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!isPasswordVisible);
   };
 
   const copyToClipboard = () => {
-    Alert.alert("Senha copiada!");
+    Clipboard.setString(password);
+    setModalVisible(true);
   };
 
   return (
@@ -40,13 +43,17 @@ export default function PasswordCard({
           <Text style={styles.label}>{label}</Text>
         </View>
         <TouchableOpacity onPress={copyToClipboard} style={styles.iconButton}>
-          <Icon name="content-copy" size={20} color={colors.background_reverse} />
+          <Icon
+            name="content-copy"
+            size={20}
+            color={colors.background_reverse}
+          />
           <Text style={styles.copyButton}></Text>
         </TouchableOpacity>
       </View>
       {login && (
         <View style={styles.loginContainer}>
-          <Text style={styles.loginTitle}/>
+          <Text style={styles.loginTitle} />
           <Text style={styles.login}>{login}</Text>
         </View>
       )}
@@ -54,16 +61,23 @@ export default function PasswordCard({
         <Text style={styles.password}>
           {isPasswordVisible ? password : "••••••••"}
         </Text>
-        <TouchableOpacity onPress={togglePasswordVisibility} style={styles.iconButton}>
-          <Icon name={isPasswordVisible ? "visibility-off" : "visibility"} size={20} color={colors.background_reverse} />
-          <Text style={styles.toggleButton}>
-     
-          </Text>
+        <TouchableOpacity
+          onPress={togglePasswordVisibility}
+          style={styles.iconButton}
+        >
+          <Icon
+            name={isPasswordVisible ? "visibility-off" : "visibility"}
+            size={20}
+            color={colors.background_reverse}
+          />
+          <Text style={styles.toggleButton}></Text>
         </TouchableOpacity>
       </View>
-      
+      <CopyModal
+        isCopyModalOpen={modalVisible}
+        onClose={() => setModalVisible(false)}
+      />
     </View>
-    
   );
 }
 
@@ -73,7 +87,7 @@ const styles = StyleSheet.create({
     padding: 15,
     marginVertical: 8,
     borderRadius: 10,
-    backgroundColor: colors.background, 
+    backgroundColor: colors.background,
     shadowColor: colors.background_reverse,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
@@ -94,7 +108,7 @@ const styles = StyleSheet.create({
   labelTitle: {
     fontSize: 16,
     fontWeight: "600",
-    color: colors.primary, 
+    color: colors.primary,
   },
   label: {
     fontSize: 16,
@@ -109,11 +123,11 @@ const styles = StyleSheet.create({
   loginTitle: {
     fontSize: 14,
     fontWeight: "600",
-    color: colors.textSecondary, 
+    color: colors.textSecondary,
   },
   login: {
     fontSize: 14,
-    color: colors.background_reverse, 
+    color: colors.background_reverse,
   },
   passwordContainer: {
     flexDirection: "row",
@@ -121,27 +135,27 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingTop: 10,
     borderTopWidth: 1,
-    borderTopColor: colors.neutral, 
+    borderTopColor: colors.neutral,
   },
   password: {
     fontSize: 18,
-    color: colors.background_reverse, 
+    color: colors.background_reverse,
     letterSpacing: 1.5,
     fontWeight: "500",
   },
   iconButton: {
     flexDirection: "row",
     alignItems: "center",
-    color: colors.background_reverse, 
+    color: colors.background_reverse,
   },
   copyButton: {
-    color: colors.background_reverse, 
+    color: colors.background_reverse,
     fontSize: 14,
     fontWeight: "bold",
     paddingLeft: 5,
   },
   toggleButton: {
-    color: colors.background_reverse, 
+    color: colors.background_reverse,
     fontSize: 14,
     fontWeight: "bold",
     paddingLeft: 5,

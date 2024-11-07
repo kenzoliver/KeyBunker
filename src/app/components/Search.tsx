@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 1,
     borderColor: colors.background_reverse,
+    color: colors.background_reverse,
     borderRadius: 25,
     paddingLeft: 20,
     fontSize: 16,

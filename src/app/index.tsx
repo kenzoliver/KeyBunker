@@ -146,7 +146,10 @@ export default function Home() {
           />
         ))}
       </ScrollView>
-      <CreateModalPassword isCreateModalOpen={modalVisible} onClose={() => setModalVisible(false)} />
+      <CreateModalPassword
+        isCreateModalOpen={modalVisible}
+        onClose={() => setModalVisible(false)}
+      />
     </View>
   );
 }
