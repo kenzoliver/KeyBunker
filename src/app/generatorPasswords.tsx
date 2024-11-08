@@ -1,19 +1,18 @@
 import {
+  Clipboard,
   StatusBar,
   StyleSheet,
+  Switch,
   Text,
   TouchableOpacity,
-  View,
-  Switch,
-  Alert,
-  Clipboard,
+  View
 } from "react-native";
-import colors from "../utils/colors/colors";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import colors from "../utils/colors/colors";
 
+import Slider from "@react-native-community/slider";
 import { Link } from "expo-router";
 import { useEffect, useState } from "react";
-import Slider from "@react-native-community/slider";
 import CopyModal from "./components/CopyModal";
 
 export default function GeneratorPassword() {
@@ -75,7 +74,7 @@ export default function GeneratorPassword() {
       />
       <View style={styles.header}>
         <TouchableOpacity>
-          <Link href={"/"}>
+          <Link href={"/home"}>
             <Icon name="arrow-back" size={30} color={colors.textOnPrimary} />
           </Link>
         </TouchableOpacity>

@@ -12,7 +12,7 @@ export default function CopyModal({ isCopyModalOpen, onClose }: CopyModalProps) 
     if (isCopyModalOpen) {
       setTimeout(() => {
         onClose();
-      }, 1000); 
+      }, 1500); 
     }
   }, [isCopyModalOpen, onClose]);
 
