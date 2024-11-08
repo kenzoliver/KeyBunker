@@ -41,10 +41,10 @@ export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
                 <Text style={styles.menuItemText}>Gerar Senha</Text>
               </Link>
         
-            <TouchableOpacity style={styles.menuItem}>
+              <Link href={"/SetMasterKey"} style={styles.menuItem} >
               <Icon name="lock" size={24} color={colors.background_reverse} />
               <Text style={styles.menuItemText}>Redefinir Senha Master</Text>
-            </TouchableOpacity>
+            </Link>
           </View>
 
           {/* Freeze */}

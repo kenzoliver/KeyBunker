@@ -4,10 +4,11 @@ import colors from "../../utils/colors/colors";
 
 type CopyModalProps = {
   isCopyModalOpen: boolean;
+  message: string;
   onClose: () => void;
 };
 
-export default function CopyModal({ isCopyModalOpen, onClose }: CopyModalProps) {
+export default function CopyModal({ isCopyModalOpen, onClose, message }: CopyModalProps) {
   useEffect(() => {
     if (isCopyModalOpen) {
       setTimeout(() => {
@@ -25,7 +26,7 @@ export default function CopyModal({ isCopyModalOpen, onClose }: CopyModalProps) 
     >
       <View style={styles.modalBackground}>
         <View style={styles.alertBox}>
-          <Text style={styles.alertText}>Senha copiada!</Text>
+          <Text style={styles.alertText}>{message}</Text>
         </View>
       </View>
     </Modal>

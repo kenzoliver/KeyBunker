@@ -79,7 +79,7 @@ export default function GeneratorPassword() {
           </Link>
         </TouchableOpacity>
 
-        <Text style={styles.headerText}>Key Bunker</Text>
+        <Text style={styles.headerText}>Gerar Senha</Text>
       </View>
 
       <View style={styles.passwordArea}>
@@ -163,6 +163,7 @@ export default function GeneratorPassword() {
       </TouchableOpacity>
       <CopyModal
         isCopyModalOpen={modalVisible}
+        message="Senha Copiada!"
         onClose={() => setModalVisible(false)}
       />
     </View>

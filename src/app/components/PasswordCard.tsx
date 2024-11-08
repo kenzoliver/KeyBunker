@@ -75,6 +75,7 @@ export default function PasswordCard({
       </View>
       <CopyModal
         isCopyModalOpen={modalVisible}
+        message="Senha Copiada!"
         onClose={() => setModalVisible(false)}
       />
     </View>
