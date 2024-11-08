@@ -110,19 +110,19 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: "bold",
     color: colors.background_reverse,
-    marginBottom: 40,
+    marginBottom: 20,
   },
   keypad: {
     alignItems: "center",
   },
   keypadRow: {
     flexDirection: "row",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   key: {
-    width: 60,
-    height: 60,
-    backgroundColor: colors.primary,
+    width: 80,
+    height: 80,
+    backgroundColor: colors.background_reverse,
     borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
@@ -130,16 +130,7 @@ const styles = StyleSheet.create({
   },
   keyText: {
     fontSize: 24,
-    color: colors.textOnPrimary,
+    color: colors.background,
     fontWeight: "bold",
-  },
-  unlockMessage: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  unlockText: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: colors.primary,
   },
 });
