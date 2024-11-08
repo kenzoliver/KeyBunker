@@ -103,7 +103,12 @@ export default function UpdatePassword() {
           <Text style={styles.errorText}>{errors.confirmPassword.message}</Text>
         )}
 
-        <Button title="Atualizar Senha" onPress={handleSubmit(onSubmit)} />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleSubmit(onSubmit)}
+        >
+          <Text style={styles.buttonText}>Atualizar Senha</Text>
+        </TouchableOpacity>
         <CopyModal
           isCopyModalOpen={confirmation}
           message="Senha Atualizada!"
@@ -157,6 +162,17 @@ const styles = StyleSheet.create({
   errorText: {
     color: "red",
     marginBottom: 10,
+    textAlign: "center",
+  },
+  button: {
+    marginTop: 10,
+    borderRadius: 10,
+    padding: 10,
+    backgroundColor: colors.background_reverse,
+  },
+  buttonText: {
+    color: colors.background,
+    fontWeight: "bold",
     textAlign: "center",
   },
 });
