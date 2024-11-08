@@ -8,13 +8,12 @@ import {
 } from "react-native";
 import colors from "../utils/colors/colors";
 
-import { useRouter } from 'expo-router';
+import { useRouter } from "expo-router";
 
 export default function PinLockScreen() {
   const [pin, setPin] = useState<string>("");
   const router = useRouter();
-  const [isLocked, setIsLocked] = useState<boolean>(true);
-  const correctPin = "1234";
+  const correctPin = "123456";
 
   const handlePress = (digit: string) => {
     setPin(pin + digit);
@@ -26,7 +25,7 @@ export default function PinLockScreen() {
 
   const handleSubmit = () => {
     if (pin === correctPin) {
-      router.push('/home');
+      router.push("/home");
     } else {
       alert("PIN incorreto!");
       setPin("");
@@ -35,57 +34,54 @@ export default function PinLockScreen() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
-
+      <StatusBar
+        backgroundColor={colors.background}
+        barStyle="light-content"
+        translucent={false}
+      />
       <View style={styles.header}>
-        <Text style={styles.headerText}>Tela de Bloqueio</Text>
+        <Text style={styles.headerText}>Digite sua Senha:</Text>
       </View>
 
-      {isLocked ? (
-        <View style={styles.pinContainer}>
-          <Text style={styles.pinDisplay}>{pin.padEnd(4, "•")}</Text>
+      <View style={styles.pinContainer}>
+        <Text style={styles.pinDisplay}>{pin.padEnd(6, "•")}</Text>
 
-          <View style={styles.keypad}>
-            {[1, 2, 3].map((row, i) => (
-              <View key={i} style={styles.keypadRow}>
-                {[1, 2, 3].map((digit) => {
-                  const buttonDigit =
-                    i * 3 + digit > 9 ? "" : (i * 3 + digit).toString();
-                  if (!buttonDigit) return null;
-                  return (
-                    <TouchableOpacity
-                      key={buttonDigit}
-                      style={styles.key}
-                      onPress={() => handlePress(buttonDigit)}
-                    >
-                      <Text style={styles.keyText}>{buttonDigit}</Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
-            ))}
-
-            <View style={styles.keypadRow}>
-              <TouchableOpacity style={styles.key} onPress={handleDelete}>
-                <Text style={styles.keyText}>←</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.key}
-                onPress={() => handlePress("0")}
-              >
-                <Text style={styles.keyText}>0</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.key} onPress={handleSubmit}>
-                <Text style={styles.keyText}>✔</Text>
-              </TouchableOpacity>
+        <View style={styles.keypad}>
+          {[1, 2, 3].map((row, i) => (
+            <View key={i} style={styles.keypadRow}>
+              {[1, 2, 3].map((digit) => {
+                const buttonDigit =
+                  i * 3 + digit > 9 ? "" : (i * 3 + digit).toString();
+                if (!buttonDigit) return null;
+                return (
+                  <TouchableOpacity
+                    key={buttonDigit}
+                    style={styles.key}
+                    onPress={() => handlePress(buttonDigit)}
+                  >
+                    <Text style={styles.keyText}>{buttonDigit}</Text>
+                  </TouchableOpacity>
+                );
+              })}
             </View>
+          ))}
+
+          <View style={styles.keypadRow}>
+            <TouchableOpacity style={styles.key} onPress={handleDelete}>
+              <Text style={styles.keyText}>←</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.key}
+              onPress={() => handlePress("0")}
+            >
+              <Text style={styles.keyText}>0</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.key} onPress={handleSubmit}>
+              <Text style={styles.keyText}>✔</Text>
+            </TouchableOpacity>
           </View>
         </View>
-      ) : (
-        <View style={styles.unlockMessage}>
-          <Text style={styles.unlockText}>Tela Desbloqueada!</Text>
-        </View>
-      )}
+      </View>
     </View>
   );
 }
@@ -104,7 +100,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 24,
     fontWeight: "bold",
-    color: colors.textOnPrimary,
+    color: colors.background_reverse,
   },
   pinContainer: {
     width: "80%",
@@ -113,7 +109,7 @@ const styles = StyleSheet.create({
   pinDisplay: {
     fontSize: 32,
     fontWeight: "bold",
-    color: colors.primary,
+    color: colors.background_reverse,
     marginBottom: 40,
   },
   keypad: {
