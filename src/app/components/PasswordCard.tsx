@@ -36,7 +36,7 @@ export default function PasswordCard({
   };
 
   return (
-    <View style={styles.card}>
+    <View style={styles.card} >
       <View style={styles.header}>
         <View style={styles.labelContainer}>
           <Text style={styles.labelTitle}></Text>

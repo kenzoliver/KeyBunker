@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
+import { Controller, useForm } from "react-hook-form";
 import {
   Modal,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { useForm, Controller } from "react-hook-form";
-import { PasswordProps } from "./PasswordCard";
 import colors from "../../utils/colors/colors";
+import { PasswordProps } from "./PasswordCard";
+import { Link } from "expo-router";
 
 type CreateModalPasswordProps = {
   isCreateModalOpen: boolean;
@@ -40,19 +40,8 @@ export default function CreateModalPassword({
     onClose();
   };
 
-  const generatePassword = () => {
-    const chars =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
-    let password = "";
-    for (let i = 0; i < 25; i++) {
-      const randomIndex = Math.floor(Math.random() * chars.length);
-      password += chars[randomIndex];
-    }
-    setValue("password", password);
-  };
-
   return (
-    <Modal visible={isCreateModalOpen} animationType="slide" transparent={true}>
+    <Modal visible={isCreateModalOpen} animationType="fade" transparent={true}>
       <View style={styles.modalBackground}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalTitle}>Adicionar Nova Senha</Text>
@@ -115,9 +104,9 @@ export default function CreateModalPassword({
             <Text style={styles.errorText}>{errors.password?.message}</Text>
           )}
 
-          <TouchableOpacity onPress={generatePassword}>
+          <Link href={"/generatorPasswords"}>
             <Text style={styles.sugested}>Sugerir Senha</Text>
-          </TouchableOpacity>
+          </Link>
 
           <View style={styles.buttonContainer}>
             <TouchableOpacity

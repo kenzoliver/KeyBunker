@@ -2114,6 +2114,11 @@
   resolved "https://registry.npmjs.org/@react-native-community/clipboard/-/clipboard-1.5.1.tgz"
   integrity sha512-AHAmrkLEH5UtPaDiRqoULERHh3oNv7Dgs0bTC0hO5Z2GdNokAMPT5w8ci8aMcRemcwbtdHjxChgtjbeA38GBdA==
 
+"@react-native-community/slider@^4.5.5":
+  version "4.5.5"
+  resolved "https://registry.npmjs.org/@react-native-community/slider/-/slider-4.5.5.tgz"
+  integrity sha512-x2N415pg4ZxIltArOKczPwn7JEYh+1OxQ4+hTnafomnMsqs65HZuEWcX+Ch8c5r8V83DiunuQUf5hWGWlw8hQQ==
+
 "@react-native/assets-registry@0.74.87":
   version "0.74.87"
   resolved "https://registry.npmjs.org/@react-native/assets-registry/-/assets-registry-0.74.87.tgz"
@@ -4345,7 +4350,7 @@ expo-modules-core@1.12.26:
   dependencies:
     invariant "^2.2.4"
 
-expo-router@~3.5.23:
+expo-router@^3.5.23:
   version "3.5.23"
   resolved "https://registry.npmjs.org/expo-router/-/expo-router-3.5.23.tgz"
   integrity sha512-Re2kYcxov67hWrcjuu0+3ovsLxYn79PuX6hgtYN20MgigY5ttX79KOIBEVGTO3F3y9dxSrGHyy5Z14BcO+usGQ==
@@ -6071,13 +6076,14 @@ jsonfile@^6.0.1:
     "@expo/vector-icons" "^14.0.2"
     "@hookform/resolvers" "^3.9.1"
     "@react-native-community/clipboard" "^1.5.1"
+    "@react-native-community/slider" "^4.5.5"
     "@react-navigation/native" "^6.1.18"
     "@react-navigation/stack" "^6.4.1"
     expo "^51.0.38"
     expo-constants "~16.0.2"
     expo-font "~12.0.9"
     expo-linking "~6.3.1"
-    expo-router "~3.5.23"
+    expo-router "^3.5.23"
     expo-splash-screen "~0.27.5"
     expo-sqlite "^14.0.6"
     expo-status-bar "~1.12.1"

@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import colors from "../../utils/colors/colors";
+import { Link } from "expo-router";
 
 type DrawerProps = {
   isDrawerOpen: boolean;
@@ -29,14 +30,17 @@ export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
       >
         <View style={styles.modalContainer}>
           <View style={styles.menuItems}>
-            <TouchableOpacity style={styles.menuItem}>
-              <Icon
-                name="vpn-key"
-                size={24}
-                color={colors.background_reverse}
-              />
-              <Text style={styles.menuItemText}>Gerar Senha</Text>
-            </TouchableOpacity>
+            
+              <Link href={"/generatorPasswords"} style={styles.menuItem} >
+                <Icon
+                  name="vpn-key"
+                  size={24}
+                  color={colors.background_reverse}
+                />
+
+                <Text style={styles.menuItemText}>Gerar Senha</Text>
+              </Link>
+        
             <TouchableOpacity style={styles.menuItem}>
               <Icon name="lock" size={24} color={colors.background_reverse} />
               <Text style={styles.menuItemText}>Redefinir Senha Master</Text>
@@ -54,7 +58,7 @@ export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
                 false: colors.background_reverse,
                 true: colors.background,
               }}
-              thumbColor={colors.background}
+              thumbColor={colors.accent}
               value={false}
               onValueChange={() => {}}
             />
@@ -64,7 +68,7 @@ export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
           <View style={styles.githubContainer}>
             <TouchableOpacity onPress={openGithubRepo} style={styles.menuItem}>
               <Icon name="code" size={24} color={colors.background_reverse} />
-              <Text style={styles.menuItemText}>Repositório no GitHub</Text>
+              <Text style={styles.link}>Acesse o Repositório no GitHub</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -102,6 +106,11 @@ const styles = StyleSheet.create({
     color: colors.background_reverse,
     marginLeft: 10,
   },
+  link: {
+    fontSize: 16,
+    color: colors.accent,
+    marginLeft: 10,
+  },
   githubContainer: {
     position: "absolute",
     bottom: 20,
@@ -110,10 +119,10 @@ const styles = StyleSheet.create({
   },
   switchContainer: {
     gap: 5,
+    width: "85%",
     position: "absolute",
     bottom: 80,
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: 15,
     borderBottomWidth: 1,
