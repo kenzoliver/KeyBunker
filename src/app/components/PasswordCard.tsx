@@ -17,7 +17,7 @@ import { PasswordProps } from "../../utils/types/passwordType";
 export default function PasswordCard({
   label,
   login,
-  passkey,
+  password,
 }: PasswordProps) {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -31,7 +31,7 @@ export default function PasswordCard({
   };
 
   const copyToClipboard = () => {
-    Clipboard.setString(passkey);
+    Clipboard.setString(password);
     setModalVisible(true);
   };
 
@@ -73,7 +73,7 @@ export default function PasswordCard({
       )}
       <View style={styles.passwordContainer}>
         <Text style={styles.password}>
-          {isPasswordVisible ? passkey : "••••••••"}
+          {isPasswordVisible ? password : "••••••••"}
         </Text>
         <TouchableOpacity
           onPress={togglePasswordVisibility}

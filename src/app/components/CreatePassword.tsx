@@ -9,8 +9,9 @@ import {
   View,
 } from "react-native";
 import colors from "../../utils/colors/colors";
-import { PasswordProps } from "./PasswordCard";
+
 import { Link } from "expo-router";
+import { PasswordProps } from "../../utils/types/passwordType";
 
 type CreateModalPasswordProps = {
   isCreateModalOpen: boolean;
