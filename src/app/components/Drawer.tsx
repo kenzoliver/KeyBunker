@@ -29,19 +29,18 @@ export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
         style={styles.modalBackground}
       >
         <View style={styles.modalContainer}>
-          <View style={styles.menuItems}>
-            
-              <Link href={"/generatorPasswords"} style={styles.menuItem} >
-                <Icon
-                  name="vpn-key"
-                  size={24}
-                  color={colors.background_reverse}
-                />
+          <View>
+            <Link href={"/generatorPasswords"} style={styles.menuItem}>
+              <Icon
+                name="vpn-key"
+                size={24}
+                color={colors.background_reverse}
+              />
 
-                <Text style={styles.menuItemText}>Gerar Senha</Text>
-              </Link>
-        
-              <Link href={"/SetMasterKey"} style={styles.menuItem} >
+              <Text style={styles.menuItemText}>Gerar Senha</Text>
+            </Link>
+
+            <Link href={"/SetMasterKey"} style={styles.menuItem}>
               <Icon name="lock" size={24} color={colors.background_reverse} />
               <Text style={styles.menuItemText}>Redefinir Senha Master</Text>
             </Link>
@@ -91,24 +90,23 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     paddingTop: 50,
   },
-  menuItems: {
-    flex: 1,
-    paddingHorizontal: 20,
-  },
+
   menuItem: {
+    paddingLeft: 10,
     flexDirection: "row",
+    justifyContent: "center",
     alignItems: "center",
     paddingVertical: 15,
     borderBottomWidth: 1,
     borderBottomColor: colors.background_reverse,
   },
   menuItemText: {
-    fontSize: 16,
+    paddingBottom: 10,
+    fontSize: 20,
     color: colors.background_reverse,
-    marginLeft: 10,
   },
   link: {
-    fontSize: 16,
+    fontSize: 13,
     color: colors.accent,
     marginLeft: 10,
   },

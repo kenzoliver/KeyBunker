@@ -14,14 +14,28 @@ import Search from "./components/Search";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import CreateModalPassword from "./components/CreatePassword";
 import Drawer from "./components/Drawer";
+import { usePasswordDatabase } from "../db/usePasswordatabase";
 
 export default function Home() {
   const [passwords, setPasswords] = useState<PasswordProps[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
+  const passwordDatabase = usePasswordDatabase();
+
+  const getPasswords = async (): Promise<any> => {
+    try {
+      const passwords = await passwordDatabase.get();
+      console.log(passwords);
+    } catch (error) {
+      console.error("Erro ao buscar senhas", error);
+    }
+  };
+  useEffect(() => {
+    getPasswords();
+  });
 
   const handlePress = () => {
-    setDrawerVisible(true)
+    setDrawerVisible(true);
   };
 
   const modalCreatePasswordOpen = () => {
@@ -29,76 +43,76 @@ export default function Home() {
   };
 
   const initialPasswordCardItems = [
-    { label: "Google", password: "securePass123!" },
+    { label: "Google", passkey: "securePass123!" },
     {
       login: "jane.smith@outlook.com",
       label: "LinkedIn",
-      password: "LinkedIn2023*",
+      passkey: "LinkedIn2023*",
     },
-    { label: "Netflix", password: "MovieNight007" },
+    { label: "Netflix", passkey: "MovieNight007" },
     {
       login: "emily.carter@yahoo.com",
       label: "Amazon",
-      password: "Prime4Life!",
+      passkey: "Prime4Life!",
     },
-    { label: "Apple ID", password: "iPhoneX2024" },
+    { label: "Apple ID", passkey: "iPhoneX2024" },
     {
       login: "gaming.pro@twitch.tv",
       label: "Twitch",
-      password: "StreamKing42",
+      passkey: "StreamKing42",
     },
-    { label: "Twitter", password: "TweetingBirds99" },
+    { label: "Twitter", passkey: "TweetingBirds99" },
     {
       login: "robert.klein@company.com",
       label: "Work Email",
-      password: "CorpSecure22#",
+      passkey: "CorpSecure22#",
     },
-    { label: "Spotify", password: "MusicLover#2023" },
+    { label: "Spotify", passkey: "MusicLover#2023" },
     {
       login: "travel.addict@domain.com",
       label: "Airbnb",
-      password: "Travel2023!",
+      passkey: "Travel2023!",
     },
-    { label: "Strava", password: "Running123!" },
-    { label: "Uber Eats", password: "Food4Life" },
+    { label: "Strava", passkey: "Running123!" },
+    { label: "Uber Eats", passkey: "Food4Life" },
     {
       login: "john.doe@xyzbank.com",
       label: "Bank Account",
-      password: "SafeBanking123!",
+      passkey: "SafeBanking123!",
     },
-    { label: "GitHub", password: "CodeSecure#2023" },
+    { label: "GitHub", passkey: "CodeSecure#2023" },
     {
       login: "foodie@grubhub.com",
       label: "Grubhub",
-      password: "DeliciousFood99",
+      passkey: "DeliciousFood99",
     },
-    { label: "PayPal", password: "Pay4Goods2023$" },
+    { label: "PayPal", passkey: "Pay4Goods2023$" },
     {
       login: "laura.photog@mail.com",
       label: "Flickr",
-      password: "Photography123!",
+      passkey: "Photography123!",
     },
-    { label: "Dropbox", password: "SecureStorage2023" },
-    { login: "reader@ebooks.com", label: "Kindle", password: "Books4Life!" },
-    { label: "Pinterest", password: "PinItNow22" },
+    { label: "Dropbox", passkey: "SecureStorage2023" },
+    { login: "reader@ebooks.com", label: "Kindle", passkey: "Books4Life!" },
+    { label: "Pinterest", passkey: "PinItNow22" },
     {
       login: "designer@dribbble.com",
       label: "Dribbble",
-      password: "ArtisticDesign@2023",
+      passkey: "ArtisticDesign@2023",
     },
-    { label: "Discord", password: "ChatSecure99" },
+    { label: "Discord", passkey: "ChatSecure99" },
     {
       login: "work.project@slack.com",
       label: "Slack",
-      password: "TeamWork2023!",
+      passkey: "TeamWork2023!",
     },
-    { label: "Skype", password: "VideoCall2023!" },
+    { label: "Skype", passkey: "VideoCall2023!" },
     {
       login: "admin@webserver.com",
       label: "Server Access",
-      password: "AdminAccess#42",
+      passkey: "AdminAccess#42",
     },
-    { label: "Pinterest", password: "CreativePins33!" },
+    { label: "Pinterest", passkey: "CreativePins33!" },
   ];
 
   const passwordFilter = (name: string) => {
@@ -143,7 +157,7 @@ export default function Home() {
             key={idx}
             login={passwordCard.login || undefined}
             label={passwordCard.label}
-            password={passwordCard.password}
+            passkey={passwordCard.passkey}
           />
         ))}
       </ScrollView>

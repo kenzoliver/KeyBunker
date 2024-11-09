@@ -10,18 +10,14 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons";
 import colors from "../../utils/colors/colors";
 import CopyModal from "./CopyModal";
+import { PasswordProps } from "../../utils/types/passwordType";
 
-export type PasswordProps = {
-  id?: number;
-  login?: string;
-  label: string;
-  password: string;
-};
+
 
 export default function PasswordCard({
   label,
   login,
-  password,
+  passkey,
 }: PasswordProps) {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -35,7 +31,7 @@ export default function PasswordCard({
   };
 
   const copyToClipboard = () => {
-    Clipboard.setString(password);
+    Clipboard.setString(passkey);
     setModalVisible(true);
   };
 
@@ -77,7 +73,7 @@ export default function PasswordCard({
       )}
       <View style={styles.passwordContainer}>
         <Text style={styles.password}>
-          {isPasswordVisible ? password : "••••••••"}
+          {isPasswordVisible ? passkey : "••••••••"}
         </Text>
         <TouchableOpacity
           onPress={togglePasswordVisibility}
