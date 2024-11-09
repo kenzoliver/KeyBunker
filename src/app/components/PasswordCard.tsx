@@ -25,7 +25,11 @@ export default function PasswordCard({
 }: PasswordProps) {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
 
+  const toggleOptionVisibility = () => {
+    setDropdownVisible(!isDropdownVisible);
+  };
   const togglePasswordVisibility = () => {
     setPasswordVisible(!isPasswordVisible);
   };
@@ -35,8 +39,16 @@ export default function PasswordCard({
     setModalVisible(true);
   };
 
+  const handleEdit = () => {
+    Alert.alert("Editar senha");
+  };
+
+  const handleDelete = () => {
+    Alert.alert("Excluir senha");
+  };
+
   return (
-    <View style={styles.card} >
+    <TouchableOpacity style={styles.card}>
       <View style={styles.header}>
         <View style={styles.labelContainer}>
           <Text style={styles.labelTitle}></Text>
@@ -49,6 +61,12 @@ export default function PasswordCard({
             color={colors.background_reverse}
           />
           <Text style={styles.copyButton}></Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={toggleOptionVisibility}
+          style={styles.iconButton}
+        >
+          <Icon name="more-vert" size={20} color={colors.background_reverse} />
         </TouchableOpacity>
       </View>
       {login && (
@@ -73,12 +91,26 @@ export default function PasswordCard({
           <Text style={styles.toggleButton}></Text>
         </TouchableOpacity>
       </View>
+
+      {isDropdownVisible && (
+        <View style={styles.dropdown}>
+          <TouchableOpacity onPress={handleEdit} style={styles.dropdownItem}>
+            <Icon name="edit" size={20} color={colors.textPrimary} style={styles.icon} />
+            <Text style={styles.dropdownText}>Editar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleDelete} style={styles.dropdownItem}>
+            <Icon name="delete" size={20} color={colors.textPrimary} style={styles.icon} />
+            <Text style={styles.dropdownText}>Excluir</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+
       <CopyModal
         isCopyModalOpen={modalVisible}
         message="Senha Copiada!"
         onClose={() => setModalVisible(false)}
       />
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -153,12 +185,41 @@ const styles = StyleSheet.create({
     color: colors.background_reverse,
     fontSize: 14,
     fontWeight: "bold",
-    paddingLeft: 5,
+    paddingHorizontal: 5,
+   
   },
   toggleButton: {
     color: colors.background_reverse,
     fontSize: 14,
     fontWeight: "bold",
     paddingLeft: 5,
+  },
+  dropdown: {
+    position: "absolute",
+    top: 40,
+    right: 10,
+    backgroundColor: colors.background,
+    borderRadius: 5,
+    padding: 10,
+    width: 150,
+    shadowColor: colors.background_reverse,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 4,
+  },
+  dropdownItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 10,
+  },
+  dropdownText: {
+    color: colors.background_reverse,
+    fontSize: 16,
+    marginLeft: 8, 
+  },
+  icon: {
+    color: colors.background_reverse,
+    marginRight: 8,
   },
 });
