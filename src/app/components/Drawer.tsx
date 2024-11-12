@@ -19,7 +19,7 @@ type DrawerProps = {
 
 export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
   const openGithubRepo = () => {
-    Linking.openURL("https://github.com/JeanLima2112/Password-Bank");
+    Linking.openURL("https://github.com/kenzoliver/KeyBunker");
   };
 
   return (
@@ -47,13 +47,13 @@ export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
           </View>
 
           {/* Freeze */}
-          {/* <View style={styles.switchContainer}>
+          <View style={styles.switchContainer}>
             <Icon
               name="nights-stay"
               size={24}
               color={colors.background_reverse}
-            /> */}
-            {/* <Switch
+            />
+            <Switch
               trackColor={{
                 false: colors.background_reverse,
                 true: colors.background,
@@ -63,7 +63,7 @@ export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
               onValueChange={() => {}}
             />
             <Icon name="wb-sunny" size={24} color={colors.background_reverse} />
-          </View> */}
+          </View>
 
           <View style={styles.githubContainer}>
             <TouchableOpacity onPress={openGithubRepo} style={styles.menuItem}>

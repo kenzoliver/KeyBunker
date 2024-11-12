@@ -14,7 +14,7 @@ import Search from "./components/Search";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import CreateModalPassword from "./components/CreatePassword";
 import Drawer from "./components/Drawer";
-import { fetchAllPasswords, initializeTables } from "./service/database";
+import { fetchAllPasswords } from "./service/database";
 
 export default function Home() {
   const [passwords, setPasswords] = useState<PasswordProps[]>([]);
@@ -27,9 +27,9 @@ export default function Home() {
       console.log(passwords);
       setPasswords(passwords);
     }
-
     setupDatabase();
-  }, [modalVisible]);
+  }, []);
+ 
 
   const handlePress = () => {
     setDrawerVisible(true);
@@ -64,7 +64,6 @@ export default function Home() {
       </View>
       <ScrollView contentContainerStyle={styles.content}>
         <Search passwordFilter={passwordFilter} />
-
         <TouchableOpacity
           style={styles.button}
           onPress={modalCreatePasswordOpen}

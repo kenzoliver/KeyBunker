@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   alertBox: {
-    width: 200,
+    width: 250,
     padding: 20,
     backgroundColor: colors.background,
     borderRadius: 10,

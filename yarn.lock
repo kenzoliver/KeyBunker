@@ -5734,7 +5734,7 @@ jsonfile@^6.0.1:
     expo-router "^3.5.23"
     expo-sqlite "^14.0.6"
     expo-status-bar "~1.12.1"
-    keybunker "file:../../../../AppData/Local/Yarn/Cache/v6/npm-keybunker-1.0.0-ede30a98-d4b9-453c-8a9c-7db61f47b90d-1731341742729/node_modules/keybunker"
+    keybunker "file:../../../../AppData/Local/Yarn/Cache/v6/npm-keybunker-1.0.0-49b744cc-4f7f-43c9-bd60-8697db19e48f-1731415741502/node_modules/keybunker"
     react "18.2.0"
     react-hook-form "^7.53.1"
     react-native "0.74.5"
@@ -8922,3 +8922,8 @@ zod@^3.22.4:
   version "3.23.8"
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.23.8.tgz#e37b957b5d52079769fb8097099b592f0ef4067d"
   integrity sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==
+
+zustand@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-5.0.1.tgz#2bdca5e4be172539558ce3974fe783174a48fdcf"
+  integrity sha512-pRET7Lao2z+n5R/HduXMio35TncTlSW68WsYBq2Lg1ASspsNGjpwLAsij3RpouyV6+kHMwwwzP0bZPD70/Jx/w==

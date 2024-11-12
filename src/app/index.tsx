@@ -5,11 +5,12 @@ import {
   View,
   TouchableOpacity,
   StatusBar,
+  Alert,
 } from "react-native";
 import colors from "./utils/colors/colors";
 
 import { useRouter } from "expo-router";
-import { comparePasswordMaster, initializeTables } from "./service/database";
+import { comparePasswordMaster, initializeTables, searchPasswordMaster } from "./service/database";
 import CopyModal from "./components/CopyModal";
 
 export default function PinLockScreen() {
@@ -29,22 +30,27 @@ export default function PinLockScreen() {
 
   async function handleSubmit(pin: string) {
     if (pin.length < 6) {
-      setModalVisible(true)
-    }
-    else {
+      setModalVisible(true);
+    } else {
       try {
         const verify = await comparePasswordMaster(pin);
         if (verify) {
           router.push("/home");
+        } else {
+          Alert.alert("Senha Incorreta");
         }
       } catch (error) {
-        router.push("/home");
+        console.error(error);
       }
     }
   }
   useEffect(() => {
     async function startbd() {
       await initializeTables();
+      const haspass = await searchPasswordMaster();
+      if(!haspass){
+        router.push("/home");
+      }
     }
     startbd();
   });
@@ -105,9 +111,9 @@ export default function PinLockScreen() {
         </View>
       </View>
       <CopyModal
-      isCopyModalOpen = {modalVisible}
-      message="A senha deve ter 6 dígitos"
-      onClose={() => setModalVisible(false)}
+        isCopyModalOpen={modalVisible}
+        message="A senha deve ter 6 dígitos"
+        onClose={() => setModalVisible(false)}
       />
     </View>
   );
