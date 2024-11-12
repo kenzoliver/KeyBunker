@@ -9,7 +9,7 @@ import {
   Switch,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import colors from "../../utils/colors/colors";
+import colors from "../utils/colors/colors";
 import { Link } from "expo-router";
 
 type DrawerProps = {
@@ -19,7 +19,7 @@ type DrawerProps = {
 
 export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
   const openGithubRepo = () => {
-    Linking.openURL("https://github.com/kenzoliver/KeyBunker");
+    Linking.openURL("https://github.com/JeanLima2112/Password-Bank");
   };
 
   return (
@@ -52,8 +52,8 @@ export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
               name="nights-stay"
               size={24}
               color={colors.background_reverse}
-            />
-            <Switch
+            /> */}
+            {/* <Switch
               trackColor={{
                 false: colors.background_reverse,
                 true: colors.background,

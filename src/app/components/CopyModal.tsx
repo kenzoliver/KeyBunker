@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Modal } from "react-native";
-import colors from "../../utils/colors/colors";
+import colors from "../utils/colors/colors";
 
 type CopyModalProps = {
   isCopyModalOpen: boolean;
@@ -8,12 +8,16 @@ type CopyModalProps = {
   onClose: () => void;
 };
 
-export default function CopyModal({ isCopyModalOpen, onClose, message }: CopyModalProps) {
+export default function CopyModal({
+  isCopyModalOpen,
+  onClose,
+  message,
+}: CopyModalProps) {
   useEffect(() => {
     if (isCopyModalOpen) {
       setTimeout(() => {
         onClose();
-      }, 1500); 
+      }, 1500);
     }
   }, [isCopyModalOpen, onClose]);
 

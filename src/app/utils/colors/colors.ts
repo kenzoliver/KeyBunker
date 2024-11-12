@@ -1,7 +1,7 @@
 import { Appearance } from "react-native";
 
 const colors = {
-    primary: "#333333",      
+    primary: "#1F2A44",      
     secondary: "#555555",    
     accent: "#4A90E2",       
     neutral: "#666666",      
@@ -17,3 +17,4 @@ const colors = {
 };
 
 export default colors;
+

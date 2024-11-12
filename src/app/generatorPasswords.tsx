@@ -5,10 +5,10 @@ import {
   Switch,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import colors from "../utils/colors/colors";
+import colors from "./utils/colors/colors";
 
 import Slider from "@react-native-community/slider";
 import { Link } from "expo-router";
@@ -110,7 +110,7 @@ export default function GeneratorPassword() {
             onValueChange={(value) => setPasswordLength(value)}
             minimumTrackTintColor={colors.success}
             maximumTrackTintColor={colors.danger}
-            thumbTintColor={colors.background_reverse}
+            thumbTintColor={colors.primary}
           />
         </View>
 
@@ -119,8 +119,8 @@ export default function GeneratorPassword() {
           <Switch
             value={includeUppercase}
             onValueChange={setIncludeUppercase}
-            thumbColor={includeUppercase ? "#f4f3f4" : colors.primary}
-            trackColor={{ false: colors.background_reverse, true: "#767577" }}
+            thumbColor={includeSpecialChars ?  colors.primary :colors.accent }
+            trackColor={{ false: colors.background_reverse, true: colors.accent }}
           />
         </View>
 
@@ -129,8 +129,8 @@ export default function GeneratorPassword() {
           <Switch
             value={includeLowercase}
             onValueChange={setIncludeLowercase}
-            thumbColor={includeLowercase ? "#f4f3f4" : colors.primary}
-            trackColor={{ false: colors.background_reverse, true: "#767577" }}
+            thumbColor={includeSpecialChars ?  colors.primary :colors.accent }
+            trackColor={{ false: colors.background_reverse, true: colors.accent }}
           />
         </View>
 
@@ -139,8 +139,8 @@ export default function GeneratorPassword() {
           <Switch
             value={includeNumbers}
             onValueChange={setIncludeNumbers}
-            thumbColor={includeNumbers ? "#f4f3f4" : colors.primary}
-            trackColor={{ false: colors.background_reverse, true: "#767577" }}
+            thumbColor={includeSpecialChars ? colors.primary :colors.accent }
+            trackColor={{ false: colors.background_reverse, true: colors.accent }}
           />
         </View>
 
@@ -149,8 +149,8 @@ export default function GeneratorPassword() {
           <Switch
             value={includeSpecialChars}
             onValueChange={setIncludeSpecialChars}
-            thumbColor={includeSpecialChars ? "#f4f3f4" : colors.primary}
-            trackColor={{ false: colors.background_reverse, true: "#767577" }}
+            thumbColor={includeSpecialChars ?  colors.primary :colors.accent }
+            trackColor={{ false: colors.background_reverse, true: colors.accent }}
           />
         </View>
       </View>
@@ -226,7 +226,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   sliderLabel: {
-    fontSize: 16,
+    fontSize: 20,
+    fontWeight: "bold",
     marginBottom: 10,
     color: colors.background_reverse,
   },
@@ -257,6 +258,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   switchText: {
+    fontSize:15,
+    fontWeight: "bold",
     color: colors.background_reverse,
   },
 });

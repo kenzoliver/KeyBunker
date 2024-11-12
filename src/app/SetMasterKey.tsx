@@ -9,11 +9,12 @@ import {
   Button,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import colors from "../utils/colors/colors";
+import colors from "./utils/colors/colors";
 import { useForm, Controller } from "react-hook-form";
 import { Link } from "expo-router";
-import { UpdateMasterKey } from "../utils/types/PasswordUpdate";
+import { UpdateMasterKey } from "./utils/types/PasswordUpdate";
 import CopyModal from "./components/CopyModal";
+import { updatePasswordMaster } from "./service/database";
 
 export default function UpdatePassword() {
   const {
@@ -22,11 +23,11 @@ export default function UpdatePassword() {
     formState: { errors },
     watch,
   } = useForm<UpdateMasterKey>();
-  const watchPassword = watch("password");
+  const watchPassword = watch("passkey");
   const [confirmation, setModalVisible] = useState(false);
 
-  const onSubmit = (data: UpdateMasterKey) => {
-    console.log("Nova senha:", data.password);
+  async function onSubmit(data: UpdateMasterKey){
+    updatePasswordMaster(data)
     setModalVisible(true);
   };
 
@@ -51,12 +52,16 @@ export default function UpdatePassword() {
 
         <Controller
           control={control}
-          name="password"
+          name="passkey"
           rules={{
             required: "A senha é obrigatória",
             minLength: {
               value: 6,
-              message: "A senha deve ter pelo menos 6 caracteres",
+              message: "A senha deve ter 6 caracteres",
+            },
+            maxLength: {
+              value: 6,
+              message: "A senha deve ter 6 caracteres",
             },
           }}
           render={({ field: { onChange, value } }) => (
@@ -73,13 +78,13 @@ export default function UpdatePassword() {
             />
           )}
         />
-        {errors.password && (
-          <Text style={styles.errorText}>{errors.password.message}</Text>
+        {errors.passkey && (
+          <Text style={styles.errorText}>{errors.passkey.message}</Text>
         )}
 
         <Controller
           control={control}
-          name="confirmPassword"
+          name="confirmPasskey"
           rules={{
             required: "A confirmação de senha é obrigatória",
             validate: (value) =>
@@ -99,8 +104,8 @@ export default function UpdatePassword() {
             />
           )}
         />
-        {errors.confirmPassword && (
-          <Text style={styles.errorText}>{errors.confirmPassword.message}</Text>
+        {errors.confirmPasskey && (
+          <Text style={styles.errorText}>{errors.confirmPasskey.message}</Text>
         )}
 
         <TouchableOpacity
@@ -168,10 +173,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 10,
     padding: 10,
-    backgroundColor: colors.background_reverse,
+    backgroundColor: colors.primary,
   },
   buttonText: {
-    color: colors.background,
+    color: colors.textOnPrimary,
     fontWeight: "bold",
     textAlign: "center",
   },

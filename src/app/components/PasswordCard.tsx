@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Alert,
   StyleSheet,
@@ -8,21 +8,26 @@ import {
   Clipboard,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import colors from "../../utils/colors/colors";
+import colors from "../utils/colors/colors";
 import CopyModal from "./CopyModal";
-import { PasswordProps } from "../../utils/types/passwordType";
-
-
+import { PasswordProps } from "../utils/types/passwordType";
+import { deletePassword } from "@/service/database";
+import UpdateModalPassword from "./UpdatePassword";
 
 export default function PasswordCard({
+  id,
   label,
   login,
-  password,
+  passkey,
 }: PasswordProps) {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const [updateModalVisible, setUpdateModalVisible] = useState(false);
+  const [data, setData] = useState<PasswordProps>({id,login,passkey,label});
 
+  
   const toggleOptionVisibility = () => {
     setDropdownVisible(!isDropdownVisible);
   };
@@ -31,20 +36,23 @@ export default function PasswordCard({
   };
 
   const copyToClipboard = () => {
-    Clipboard.setString(password);
+    Clipboard.setString(passkey);
     setModalVisible(true);
   };
 
   const handleEdit = () => {
-    Alert.alert("Editar senha");
+    setUpdateModalVisible(true);
   };
 
-  const handleDelete = () => {
-    Alert.alert("Excluir senha");
-  };
+  async function handleDelete() {
+    setModalDeleteVisible(true);
+    if (id) {
+      await deletePassword(id);
+    }
+  }
 
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity style={styles.card} onLongPress={copyToClipboard}>
       <View style={styles.header}>
         <View style={styles.labelContainer}>
           <Text style={styles.labelTitle}></Text>
@@ -62,7 +70,7 @@ export default function PasswordCard({
           onPress={toggleOptionVisibility}
           style={styles.iconButton}
         >
-          <Icon name="more-vert" size={20} color={colors.background_reverse} />
+          <Icon name="more-vert" size={30} color={colors.background_reverse} />
         </TouchableOpacity>
       </View>
       {login && (
@@ -73,7 +81,7 @@ export default function PasswordCard({
       )}
       <View style={styles.passwordContainer}>
         <Text style={styles.password}>
-          {isPasswordVisible ? password : "••••••••"}
+          {isPasswordVisible ? passkey : "••••••••"}
         </Text>
         <TouchableOpacity
           onPress={togglePasswordVisibility}
@@ -90,12 +98,34 @@ export default function PasswordCard({
 
       {isDropdownVisible && (
         <View style={styles.dropdown}>
-          <TouchableOpacity onPress={handleEdit} style={styles.dropdownItem}>
-            <Icon name="edit" size={20} color={colors.textPrimary} style={styles.icon} />
+          <TouchableOpacity
+            onPress={() => {
+              handleEdit();
+              toggleOptionVisibility();
+            }}
+            style={styles.dropdownItem}
+          >
+            <Icon
+              name="edit"
+              size={20}
+              color={colors.textPrimary}
+              style={styles.icon}
+            />
             <Text style={styles.dropdownText}>Editar</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleDelete} style={styles.dropdownItem}>
-            <Icon name="delete" size={20} color={colors.textPrimary} style={styles.icon} />
+          <TouchableOpacity
+            onPress={() => {
+              handleDelete();
+              toggleOptionVisibility();
+            }}
+            style={styles.dropdownItem}
+          >
+            <Icon
+              name="delete"
+              size={20}
+              color={colors.textPrimary}
+              style={styles.icon}
+            />
             <Text style={styles.dropdownText}>Excluir</Text>
           </TouchableOpacity>
         </View>
@@ -105,6 +135,16 @@ export default function PasswordCard({
         isCopyModalOpen={modalVisible}
         message="Senha Copiada!"
         onClose={() => setModalVisible(false)}
+      />
+      <CopyModal
+        isCopyModalOpen={modalDeleteVisible}
+        message="Senha Excluida!"
+        onClose={() => setModalDeleteVisible(false)}
+      />
+      <UpdateModalPassword
+        isUpdateModalOpen={updateModalVisible}
+        data={data}
+        onClose={() => setUpdateModalVisible(false)}
       />
     </TouchableOpacity>
   );
@@ -182,7 +222,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     paddingHorizontal: 5,
-   
   },
   toggleButton: {
     color: colors.background_reverse,
@@ -192,8 +231,8 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     position: "absolute",
-    top: 40,
-    right: 10,
+    top: 15,
+    right: 45,
     backgroundColor: colors.background,
     borderRadius: 5,
     padding: 10,
@@ -212,7 +251,7 @@ const styles = StyleSheet.create({
   dropdownText: {
     color: colors.background_reverse,
     fontSize: 16,
-    marginLeft: 8, 
+    marginLeft: 8,
   },
   icon: {
     color: colors.background_reverse,

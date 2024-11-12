@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,31 +6,48 @@ import {
   TouchableOpacity,
   StatusBar,
 } from "react-native";
-import colors from "../utils/colors/colors";
+import colors from "./utils/colors/colors";
 
 import { useRouter } from "expo-router";
+import { comparePasswordMaster, initializeTables } from "./service/database";
+import CopyModal from "./components/CopyModal";
 
 export default function PinLockScreen() {
   const [pin, setPin] = useState<string>("");
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
   const router = useRouter();
-  const correctPin = "123456";
 
   const handlePress = (digit: string) => {
-    setPin(pin + digit);
+    if (pin.length <= 5) {
+      setPin(pin + digit);
+    }
   };
 
   const handleDelete = () => {
     setPin(pin.slice(0, -1));
   };
 
-  const handleSubmit = () => {
-    if (pin === correctPin) {
-      router.push("/home");
-    } else {
-      alert("PIN incorreto!");
-      setPin("");
+  async function handleSubmit(pin: string) {
+    if (pin.length < 6) {
+      setModalVisible(true)
     }
-  };
+    else {
+      try {
+        const verify = await comparePasswordMaster(pin);
+        if (verify) {
+          router.push("/home");
+        }
+      } catch (error) {
+        router.push("/home");
+      }
+    }
+  }
+  useEffect(() => {
+    async function startbd() {
+      await initializeTables();
+    }
+    startbd();
+  });
 
   return (
     <View style={styles.container}>
@@ -76,12 +93,22 @@ export default function PinLockScreen() {
             >
               <Text style={styles.keyText}>0</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.key} onPress={handleSubmit}>
+            <TouchableOpacity
+              style={styles.key}
+              onPress={() => {
+                handleSubmit(pin);
+              }}
+            >
               <Text style={styles.keyText}>✔</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
+      <CopyModal
+      isCopyModalOpen = {modalVisible}
+      message="A senha deve ter 6 dígitos"
+      onClose={() => setModalVisible(false)}
+      />
     </View>
   );
 }

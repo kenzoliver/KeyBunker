@@ -11,16 +11,18 @@ import {
 } from "react-native";
 import colors from "../utils/colors/colors";
 import { PasswordProps } from "../utils/types/passwordType";
-import { insertPasswords } from "@/service/database";
+import { updatePassword } from "@/service/database";
 
 type CreateModalPasswordProps = {
-  isCreateModalOpen: boolean;
+  isUpdateModalOpen: boolean;
+  data: PasswordProps;
   onClose: () => void;
 };
 
-export default function CreateModalPassword({
-  isCreateModalOpen,
+export default function UpdateModalPassword({
+  isUpdateModalOpen,
   onClose,
+  data
 }: CreateModalPasswordProps) {
   const {
     control,
@@ -31,21 +33,21 @@ export default function CreateModalPassword({
   } = useForm<PasswordProps>();
 
   useEffect(() => {
-    if (!isCreateModalOpen) {
-      reset();
+    if (!isUpdateModalOpen) {
+      reset(data);
     }
-  }, [isCreateModalOpen, reset]);
+  }, [isUpdateModalOpen, reset]);
 
   const handleSave = (data: PasswordProps) => {
-    insertPasswords(data);
+    updatePassword(data);
     onClose();
   };
 
   return (
-    <Modal visible={isCreateModalOpen} animationType="fade" transparent={true}>
+    <Modal visible={isUpdateModalOpen} animationType="fade" transparent={true}>
       <View style={styles.modalBackground}>
         <View style={styles.modalContainer}>
-          <Text style={styles.modalTitle}>Adicionar Nova Senha</Text>
+          <Text style={styles.modalTitle}>Edite sua Senha</Text>
 
           <Controller
             name="label"
@@ -163,5 +165,9 @@ const styles = StyleSheet.create({
   errorText: {
     color: "red",
     fontSize: 12,
+  },
+  sugested: {
+    color: colors.accent,
+    textAlign: "right",
   },
 });
