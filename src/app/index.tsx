@@ -16,6 +16,7 @@ import CopyModal from "./components/CopyModal";
 export default function PinLockScreen() {
   const [pin, setPin] = useState<string>("");
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [modalErrorVisible, setModalErrorVisible] = useState<boolean>(false);
   const router = useRouter();
 
   const handlePress = (digit: string) => {
@@ -37,7 +38,7 @@ export default function PinLockScreen() {
         if (verify) {
           router.push("/home");
         } else {
-          Alert.alert("Senha Incorreta");
+          setModalErrorVisible(true);
         }
       } catch (error) {
         console.error(error);
@@ -114,6 +115,11 @@ export default function PinLockScreen() {
         isCopyModalOpen={modalVisible}
         message="A senha deve ter 6 dígitos"
         onClose={() => setModalVisible(false)}
+      />
+      <CopyModal
+        isCopyModalOpen={modalErrorVisible}
+        message="Senha incorreta!"
+        onClose={() => setModalErrorVisible(false)}
       />
     </View>
   );
