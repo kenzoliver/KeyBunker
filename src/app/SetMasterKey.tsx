@@ -6,12 +6,12 @@ import {
   TouchableOpacity,
   View,
   TextInput,
-  Button,
+  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import colors from "./utils/colors/colors";
 import { useForm, Controller } from "react-hook-form";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { UpdateMasterKey } from "./utils/types/PasswordUpdate";
 import CopyModal from "./components/CopyModal";
 import { updatePasswordMaster } from "./service/database";
@@ -25,11 +25,18 @@ export default function UpdatePassword() {
   } = useForm<UpdateMasterKey>();
   const watchPassword = watch("passkey");
   const [confirmation, setModalVisible] = useState(false);
+  const [error, setErrorModal] = useState(false);
 
-  async function onSubmit(data: UpdateMasterKey){
-    updatePasswordMaster(data)
-    setModalVisible(true);
-  };
+  async function onSubmit(data: UpdateMasterKey) {
+    const regex = /^\d{6}$/;
+    if (regex.test(data.confirmPasskey)) {
+      updatePasswordMaster(data);
+      setModalVisible(true);
+      router.navigate("/home");
+    } else {
+      setErrorModal(true);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -118,6 +125,11 @@ export default function UpdatePassword() {
           isCopyModalOpen={confirmation}
           message="Senha Atualizada!"
           onClose={() => setModalVisible(false)}
+        />
+        <CopyModal
+          isCopyModalOpen={error}
+          message="Ocorreu um erro!"
+          onClose={() => setErrorModal(false)}
         />
       </View>
     </View>

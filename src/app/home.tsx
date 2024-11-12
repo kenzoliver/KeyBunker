@@ -28,7 +28,7 @@ export default function Home() {
       setPasswords(passwords);
     }
     setupDatabase();
-  }, []);
+  }, [modalVisible]);
  
 
   const handlePress = () => {

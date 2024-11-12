@@ -49,7 +49,7 @@ export default function PinLockScreen() {
       await initializeTables();
       const haspass = await searchPasswordMaster();
       if(!haspass){
-        router.push("/home");
+        router.navigate("/home");
       }
     }
     startbd();
