@@ -21,18 +21,15 @@ export default function Home() {
   const [passwords, setPasswords] = useState<PasswordProps[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
- const { value, setValue } = useSimpleStore(); 
-  
+  const { value, setValue } = useSimpleStore();
 
   useEffect(() => {
     async function setupDatabase() {
       const passwords = await fetchAllPasswords();
-      console.log(passwords);
       setPasswords(passwords);
     }
     setupDatabase();
   }, [value]);
- 
 
   const handlePress = () => {
     setDrawerVisible(true);
@@ -42,14 +39,17 @@ export default function Home() {
     setModalVisible(true);
   };
 
-  const passwordFilter = (name: string) => {
-    if (name === "") {
-      setPasswords(passwords);
-    }
+  const passwordFilter = async (name: string) => {
     const filteredPasswords = passwords.filter((item) =>
       item.label.toLowerCase().startsWith(name.toLowerCase())
     );
-    setPasswords(filteredPasswords);
+  
+    if (name === "") {
+      setPasswords(await fetchAllPasswords());
+    } else {
+      setPasswords(filteredPasswords);
+    }
+  
   };
 
   return (
