@@ -13,6 +13,7 @@ import CopyModal from "./CopyModal";
 import { PasswordProps } from "../utils/types/passwordType";
 import { deletePassword } from "@/service/database";
 import UpdateModalPassword from "./UpdatePassword";
+import { useSimpleStore } from "@/store/password";
 
 export default function PasswordCard({
   id,
@@ -25,9 +26,14 @@ export default function PasswordCard({
   const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [updateModalVisible, setUpdateModalVisible] = useState(false);
-  const [data, setData] = useState<PasswordProps>({id,login,passkey,label});
+  const [data, setData] = useState<PasswordProps>({
+    id,
+    login,
+    passkey,
+    label,
+  });
+  const { value, setValue } = useSimpleStore();
 
-  
   const toggleOptionVisibility = () => {
     setDropdownVisible(!isDropdownVisible);
   };
@@ -45,6 +51,7 @@ export default function PasswordCard({
   };
 
   async function handleDelete() {
+    setValue("swap");
     setModalDeleteVisible(true);
     if (id) {
       await deletePassword(id);

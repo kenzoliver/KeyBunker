@@ -15,11 +15,14 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import CreateModalPassword from "./components/CreatePassword";
 import Drawer from "./components/Drawer";
 import { fetchAllPasswords } from "./service/database";
+import { useSimpleStore } from "./store/password";
 
 export default function Home() {
   const [passwords, setPasswords] = useState<PasswordProps[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
+ const { value, setValue } = useSimpleStore(); 
+  
 
   useEffect(() => {
     async function setupDatabase() {
@@ -28,7 +31,7 @@ export default function Home() {
       setPasswords(passwords);
     }
     setupDatabase();
-  }, [modalVisible]);
+  }, [value]);
  
 
   const handlePress = () => {

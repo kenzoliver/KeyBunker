@@ -1,4 +1,5 @@
-import { Link } from "expo-router";
+import { insertPasswords } from "@/service/database";
+import { useSimpleStore } from "@/store/password";
 import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
@@ -11,7 +12,6 @@ import {
 } from "react-native";
 import colors from "../utils/colors/colors";
 import { PasswordProps } from "../utils/types/passwordType";
-import { insertPasswords } from "@/service/database";
 
 type CreateModalPasswordProps = {
   isCreateModalOpen: boolean;
@@ -27,8 +27,9 @@ export default function CreateModalPassword({
     handleSubmit,
     formState: { errors },
     reset,
-    setValue,
   } = useForm<PasswordProps>();
+
+  const { value, setValue } = useSimpleStore();
 
   useEffect(() => {
     if (!isCreateModalOpen) {
@@ -37,6 +38,7 @@ export default function CreateModalPassword({
   }, [isCreateModalOpen, reset]);
 
   const handleSave = (data: PasswordProps) => {
+    setValue("swap")
     insertPasswords(data);
     onClose();
   };

@@ -11,6 +11,7 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons";
 import colors from "../utils/colors/colors";
 import { Link } from "expo-router";
+import { useSimpleStore } from "@/store/password";
 
 type DrawerProps = {
   isDrawerOpen: boolean;
@@ -18,6 +19,7 @@ type DrawerProps = {
 };
 
 export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
+
   const openGithubRepo = () => {
     Linking.openURL("https://github.com/kenzoliver/KeyBunker");
   };
