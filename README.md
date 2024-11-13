@@ -1,5 +1,9 @@
 # KeyBunker - Gerenciador de Senhas
-![icon](https://github.com/user-attachments/assets/f43f8eb1-e98e-494c-952b-c8e33df3c217)
+
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="assets/images/icon.png" alt="Ícone" style="width: 50%; height: 50%;">
+</div>
+
 
 
 O **KeyBunker** é um aplicativo simples e eficiente de gerenciamento de senhas, desenvolvido com **React Native**, **Expo**, e **SQLite**. Ele permite que os usuários armazenem, organizem e acessem suas senhas de forma segura e prática, com uma interface amigável e funcionalidade fácil de usar.
