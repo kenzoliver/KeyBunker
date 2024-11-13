@@ -8,20 +8,24 @@ import {
   Alert,
 } from "react-native";
 
-
 import { useRouter } from "expo-router";
-import { comparePasswordMaster, initializeTables, searchPasswordMaster } from "./service/database";
+import {
+  comparePasswordMaster,
+  initializeTables,
+  searchPasswordMaster,
+} from "./service/database";
 import CopyModal from "./components/CopyModal";
 import colors from "./utils/colors/colors";
 import { useBlock } from "./store/block";
-
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 export default function PinLockScreen() {
   const [pin, setPin] = useState<string>("");
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [modalErrorVisible, setModalErrorVisible] = useState<boolean>(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const router = useRouter();
-  const { free,setBlock } = useBlock();
+  const { free, setBlock } = useBlock();
 
   const handlePress = (digit: string) => {
     if (pin.length <= 5) {
@@ -31,6 +35,10 @@ export default function PinLockScreen() {
 
   const handleDelete = () => {
     setPin(pin.slice(0, -1));
+  };
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
   };
 
   async function handleSubmit(pin: string) {
@@ -44,14 +52,14 @@ export default function PinLockScreen() {
           router.push("/");
         } else {
           setModalErrorVisible(true);
-          setPin('')
+          setPin("");
         }
       } catch (error) {
         console.error(error);
       }
     }
   }
-  
+
   return (
     <View style={styles.container}>
       <StatusBar
@@ -64,7 +72,19 @@ export default function PinLockScreen() {
       </View>
 
       <View style={styles.pinContainer}>
-        <Text style={styles.pinDisplay}>{pin.padEnd(6, "•")}</Text>
+        <TouchableOpacity
+          onPress={togglePasswordVisibility}
+          style={styles.iconButton}
+        >
+          <Icon
+            name={isPasswordVisible ? "visibility" : "visibility-off"}
+            size={24}
+            color={colors.background_reverse}
+          />
+        </TouchableOpacity>
+        <Text style={styles.pinDisplay}>
+          {isPasswordVisible ? pin : "•".repeat(pin.length)}
+        </Text>
 
         <View style={styles.keypad}>
           {[1, 2, 3].map((row, i) => (
@@ -98,15 +118,14 @@ export default function PinLockScreen() {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.key}
-              onPress={() => {
-                handleSubmit(pin);
-              }}
+              onPress={() => handleSubmit(pin)}
             >
               <Text style={styles.keyText}>✔</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
+
       <CopyModal
         isCopyModalOpen={modalVisible}
         message="A senha deve ter 6 dígitos"
@@ -146,6 +165,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: colors.background_reverse,
     marginBottom: 20,
+  },
+  iconButton: {
+    position: "absolute",
+    top: -10,
+    right: 10,
   },
   keypad: {
     alignItems: "center",

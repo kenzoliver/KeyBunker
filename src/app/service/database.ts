@@ -120,7 +120,7 @@ export async function comparePasswordMaster(
   const result = (await db.getAllAsync(
     "SELECT passkey FROM passwordmaster WHERE id = 1"
   )) as { passkey: string }[];
-  console.log(result);
+
 
   if (result.length > 0 && result[0].passkey) {
     const storedHash = decryptPassword(result[0].passkey);

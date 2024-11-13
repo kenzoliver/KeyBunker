@@ -44,11 +44,11 @@ export default function UpdatePassword() {
     async function verify() {
       const verify = await searchPasswordMaster();
       if (!verify) {
-        setTextHeader("Criar senha");
+        setTextHeader("Criar Senha");
         setTextLabel("Crie sua senha de acesso!");
         setButtonLabel("Criar");
       } else {
-        setTextHeader("Atualizar senha");
+        setTextHeader("Atualizar Senha");
         setTextLabel("Atualize sua senha de acesso!");
         setButtonLabel("Atualizar");
       }
