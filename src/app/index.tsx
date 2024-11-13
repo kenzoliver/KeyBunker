@@ -1,128 +1,141 @@
 import React, { useEffect, useState } from "react";
 import {
+  ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
-  View,
   TouchableOpacity,
-  StatusBar,
-  Alert,
+  View,
 } from "react-native";
 
+import { PasswordProps } from "./utils/types/passwordType";
+import PasswordCard from "./components/PasswordCard";
+import Search from "./components/Search";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import CreateModalPassword from "./components/CreatePassword";
+import Drawer from "./components/Drawer";
+import {
+  fetchAllPasswords,
+  initializeTables,
+  searchPasswordMaster,
+} from "./service/database";
+import { useSimpleStore } from "./store/password";
 
-import { useRouter } from "expo-router";
-import { comparePasswordMaster, initializeTables, searchPasswordMaster } from "./service/database";
-import CopyModal from "./components/CopyModal";
+import Remember from "./components/Remember";
 import colors from "./utils/colors/colors";
+import { router } from "expo-router";
+import { useBlock } from "./store/block";
 
+export default function Home() {
+  const [passwords, setPasswords] = useState<PasswordProps[]>([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [rememberVisible, setRememberVisible] = useState(false);
+  const { value, setValue } = useSimpleStore();
+  const { free, setBlock } = useBlock();
 
-export default function PinLockScreen() {
-  const [pin, setPin] = useState<string>("");
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [modalErrorVisible, setModalErrorVisible] = useState<boolean>(false);
-  const router = useRouter();
-
-  const handlePress = (digit: string) => {
-    if (pin.length <= 5) {
-      setPin(pin + digit);
-    }
-  };
-
-  const handleDelete = () => {
-    setPin(pin.slice(0, -1));
-  };
-
-  async function handleSubmit(pin: string) {
-    if (pin.length < 6) {
-      setModalVisible(true);
-    } else {
-      try {
-        const verify = await comparePasswordMaster(pin);
-        if (verify) {
-          router.push("/home");
-        } else {
-          setModalErrorVisible(true);
-          setPin('')
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }
   useEffect(() => {
     async function startbd() {
       await initializeTables();
-      const haspass = await searchPasswordMaster();
-      if(!haspass){
-        router.navigate("/home");
-      }
     }
     startbd();
-  });
+  },[]);
+
+  useEffect(() => {
+    async function verify() {
+      const verify = await searchPasswordMaster();
+      if (!verify) {
+        setTimeout(() => {
+          setRememberVisible(true);
+        }, 5000);
+      } else {
+        if (free === false) {
+          router.navigate("/BlockPage");
+        }
+      }
+    }
+    verify();
+  }, []);
+
+  useEffect(() => {
+    async function setupDatabase() {
+      const passwords = await fetchAllPasswords();
+      setPasswords(passwords);
+    }
+    setupDatabase();
+  }, [value]);
+
+  const handlePress = () => {
+    setDrawerVisible(true);
+  };
+
+  const modalCreatePasswordOpen = () => {
+    
+    setModalVisible(true);
+  };
+
+  const passwordFilter = async (name: string) => {
+    const filteredPasswords = passwords.filter((item) =>
+      item.label.toLowerCase().startsWith(name.toLowerCase())
+    );
+
+    if (name === "") {
+      setPasswords(await fetchAllPasswords());
+    } else {
+      setPasswords(filteredPasswords);
+    }
+  };
 
   return (
     <View style={styles.container}>
       <StatusBar
-        backgroundColor={colors.background}
+        backgroundColor={colors.primary}
         barStyle="light-content"
         translucent={false}
       />
       <View style={styles.header}>
-        <Text style={styles.headerText}>Digite sua Senha:</Text>
+        <Text style={styles.headerText}>Key Bunker</Text>
+        <TouchableOpacity onPress={handlePress}>
+          <Icon name="menu" size={30} color={colors.textOnPrimary} />
+        </TouchableOpacity>
       </View>
-
-      <View style={styles.pinContainer}>
-        <Text style={styles.pinDisplay}>{pin.padEnd(6, "•")}</Text>
-
-        <View style={styles.keypad}>
-          {[1, 2, 3].map((row, i) => (
-            <View key={i} style={styles.keypadRow}>
-              {[1, 2, 3].map((digit) => {
-                const buttonDigit =
-                  i * 3 + digit > 9 ? "" : (i * 3 + digit).toString();
-                if (!buttonDigit) return null;
-                return (
-                  <TouchableOpacity
-                    key={buttonDigit}
-                    style={styles.key}
-                    onPress={() => handlePress(buttonDigit)}
-                  >
-                    <Text style={styles.keyText}>{buttonDigit}</Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
-          ))}
-
-          <View style={styles.keypadRow}>
-            <TouchableOpacity style={styles.key} onPress={handleDelete}>
-              <Text style={styles.keyText}>←</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.key}
-              onPress={() => handlePress("0")}
-            >
-              <Text style={styles.keyText}>0</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.key}
-              onPress={() => {
-                handleSubmit(pin);
-              }}
-            >
-              <Text style={styles.keyText}>✔</Text>
-            </TouchableOpacity>
+      <ScrollView contentContainerStyle={styles.content}>
+        <Search passwordFilter={passwordFilter} />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={modalCreatePasswordOpen}
+        >
+          <Text style={styles.buttonText}>Adicionar Senha</Text>
+        </TouchableOpacity>
+        {passwords && passwords.length > 0 ? (
+          passwords.map((passwordCard) => (
+            <PasswordCard
+              key={passwordCard.id}
+              id={passwordCard.id}
+              login={passwordCard.login || undefined}
+              label={passwordCard.label}
+              passkey={passwordCard.passkey}
+            />
+          ))
+        ) : (
+          <View style={styles.notfoundcontainer}>
+            <Text style={styles.messageText}>
+              Ainda Não há, nenhuma senha, crie uma!
+            </Text>
           </View>
-        </View>
-      </View>
-      <CopyModal
-        isCopyModalOpen={modalVisible}
-        message="A senha deve ter 6 dígitos"
+        )}
+      </ScrollView>
+      <CreateModalPassword
+        isCreateModalOpen={modalVisible}
         onClose={() => setModalVisible(false)}
       />
-      <CopyModal
-        isCopyModalOpen={modalErrorVisible}
-        message="Senha incorreta!"
-        onClose={() => setModalErrorVisible(false)}
+      <Drawer
+        isDrawerOpen={drawerVisible}
+        onClose={() => setDrawerVisible(false)}
+      />
+      <Remember
+        isRememberModalOpen={rememberVisible}
+        onClose={() => setRememberVisible(false)}
       />
     </View>
   );
@@ -132,47 +145,52 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-    justifyContent: "center",
-    alignItems: "center",
   },
   header: {
-    paddingBottom: 20,
-    paddingTop: 40,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 16,
+    backgroundColor: colors.primary,
+    borderBottomWidth: 1,
   },
   headerText: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
-    color: colors.background_reverse,
+    color: colors.textOnPrimary,
   },
-  pinContainer: {
-    width: "80%",
-    alignItems: "center",
+  content: {
+    gap: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
   },
-  pinDisplay: {
-    fontSize: 32,
+  contentText: {
+    fontSize: 16,
+    color: colors.textSecondary,
+  },
+  button: {
+    marginTop: 10,
+    borderRadius: 10,
+    padding: 10,
+    backgroundColor: colors.primary,
+  },
+  buttonText: {
+    color: colors.textOnPrimary,
     fontWeight: "bold",
-    color: colors.background_reverse,
-    marginBottom: 20,
+    textAlign: "center",
   },
-  keypad: {
-    alignItems: "center",
-  },
-  keypadRow: {
-    flexDirection: "row",
-    marginBottom: 10,
-  },
-  key: {
-    width: 80,
-    height: 80,
-    backgroundColor: colors.background_reverse,
-    borderRadius: 30,
+  notfoundcontainer: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    margin: 10,
+    padding: 20,
   },
-  keyText: {
-    fontSize: 24,
-    color: colors.background,
+  messageText: {
+    fontSize: 18,
     fontWeight: "bold",
+    textAlign: "center",
+    color: colors.background_reverse,
+    marginBottom: 20,
+    paddingHorizontal: 10,
   },
 });

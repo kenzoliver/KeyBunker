@@ -76,7 +76,7 @@ export default function GeneratorPassword() {
       />
       <View style={styles.header}>
         <TouchableOpacity>
-          <Link href={"/home"}>
+          <Link href={"/"}>
             <Icon name="arrow-back" size={30} color={colors.textOnPrimary} />
           </Link>
         </TouchableOpacity>
