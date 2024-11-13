@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   View,
   TextInput,
-  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
@@ -16,7 +15,6 @@ import { UpdateMasterKey } from "./utils/types/PasswordUpdate";
 import CopyModal from "./components/CopyModal";
 import { searchPasswordMaster, updatePasswordMaster } from "./service/database";
 import colors from "./utils/colors/colors";
-
 
 export default function UpdatePassword() {
   const {
@@ -30,13 +28,13 @@ export default function UpdatePassword() {
   const [error, setErrorModal] = useState(false);
   const [textheader, setTextHeader] = useState<string>("");
   const [textlabel, setTextLabel] = useState<string>("");
+  const [buttonLabel, setButtonLabel] = useState<string>("");
 
   async function onSubmit(data: UpdateMasterKey) {
     const regex = /^\d{6}$/;
     if (regex.test(data.confirmPasskey)) {
       updatePasswordMaster(data);
       setModalVisible(true);
-  
     } else {
       setErrorModal(true);
     }
@@ -45,16 +43,18 @@ export default function UpdatePassword() {
   useEffect(() => {
     async function verify() {
       const verify = await searchPasswordMaster();
-      if(!verify){
-        setTextHeader("Criar senha")
-        setTextLabel("Crie sua senha de acesso!")
-      }else{
-        setTextHeader("Atualizar senha")
-        setTextLabel("Atualize sua senha de acesso!")
+      if (!verify) {
+        setTextHeader("Criar senha");
+        setTextLabel("Crie sua senha de acesso!");
+        setButtonLabel("Criar");
+      } else {
+        setTextHeader("Atualizar senha");
+        setTextLabel("Atualize sua senha de acesso!");
+        setButtonLabel("Atualizar");
       }
     }
     verify();
-  },[]);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -137,7 +137,7 @@ export default function UpdatePassword() {
           style={styles.button}
           onPress={handleSubmit(onSubmit)}
         >
-          <Text style={styles.buttonText}>Atualizar Senha</Text>
+          <Text style={styles.buttonText}>{buttonLabel} Senha</Text>
         </TouchableOpacity>
         <CopyModal
           isCopyModalOpen={confirmation}
