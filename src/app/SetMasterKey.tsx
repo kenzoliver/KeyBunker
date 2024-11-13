@@ -75,7 +75,7 @@ export default function UpdatePassword() {
           render={({ field: { onChange, value } }) => (
             <TextInput
               style={styles.input}
-              placeholder="Digite a nova senha"
+              placeholder="Digite uma senha numerica de 6 digitos"
               keyboardType="numeric"
               value={value}
               onChangeText={(text) => {
