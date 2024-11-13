@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -12,6 +12,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 
 import { Link } from "expo-router";
 import { colors } from "@/utils/colors/colors";
+import { searchPasswordMaster } from "@/service/database";
 
 
 type DrawerProps = {
@@ -20,6 +21,21 @@ type DrawerProps = {
 };
 
 export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
+  const [textLabel, setTextLabel] = useState<string>("");
+
+  useEffect(() => {
+    async function verify() {
+      const verify = await searchPasswordMaster();
+      if(verify){
+
+        setTextLabel("Redefina")
+      }else{
+
+        setTextLabel("Defina")
+      }
+    }
+    verify();
+  },[]);
 
   const openGithubRepo = () => {
     Linking.openURL("https://github.com/kenzoliver/KeyBunker");
@@ -45,7 +61,7 @@ export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
 
             <Link href={"/SetMasterKey"} style={styles.menuItem}>
               <Icon name="lock" size={24} color={colors.background_reverse} />
-              <Text style={styles.menuItemText}>Redefinir Senha Master</Text>
+              <Text style={styles.menuItemText}>{textLabel} Senha Master</Text>
             </Link>
           </View>
 

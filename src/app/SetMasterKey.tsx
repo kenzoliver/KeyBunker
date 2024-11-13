@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StatusBar,
   StyleSheet,
@@ -14,7 +14,7 @@ import { useForm, Controller } from "react-hook-form";
 import { Link, router } from "expo-router";
 import { UpdateMasterKey } from "./utils/types/PasswordUpdate";
 import CopyModal from "./components/CopyModal";
-import { updatePasswordMaster } from "./service/database";
+import { searchPasswordMaster, updatePasswordMaster } from "./service/database";
 import { colors } from "./utils/colors/colors";
 
 export default function UpdatePassword() {
@@ -27,6 +27,8 @@ export default function UpdatePassword() {
   const watchPassword = watch("passkey");
   const [confirmation, setModalVisible] = useState(false);
   const [error, setErrorModal] = useState(false);
+  const [textheader, setTextHeader] = useState<string>("");
+  const [textlabel, setTextLabel] = useState<string>("");
 
   async function onSubmit(data: UpdateMasterKey) {
     const regex = /^\d{6}$/;
@@ -38,6 +40,20 @@ export default function UpdatePassword() {
       setErrorModal(true);
     }
   }
+
+  useEffect(() => {
+    async function verify() {
+      const verify = await searchPasswordMaster();
+      if(!verify){
+        setTextHeader("Criar senha")
+        setTextLabel("Crie sua senha de acesso!")
+      }else{
+        setTextHeader("Atualizar senha")
+        setTextLabel("Atualize sua senha de acesso!")
+      }
+    }
+    verify();
+  },[]);
 
   return (
     <View style={styles.container}>
@@ -52,11 +68,11 @@ export default function UpdatePassword() {
             <Icon name="arrow-back" size={30} color={colors.textOnPrimary} />
           </Link>
         </TouchableOpacity>
-        <Text style={styles.headerText}>Atualizar Senha</Text>
+        <Text style={styles.headerText}>{textheader}</Text>
       </View>
 
       <View style={styles.formContainer}>
-        <Text style={styles.formTitle}>Atualize sua senha</Text>
+        <Text style={styles.formTitle}>{textlabel}</Text>
 
         <Controller
           control={control}
