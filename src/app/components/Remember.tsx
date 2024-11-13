@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 100,
+    marginBottom: 80,
     textAlign: "center",
     color: colors.background_reverse,
   },
@@ -86,11 +86,12 @@ const styles = StyleSheet.create({
     width: 120,
     height: 50,
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 15,
     margin: 10,
   },
   buttonText: {
     color: colors.background,
+    fontSize: 16,
     fontWeight: "bold",
   },
 

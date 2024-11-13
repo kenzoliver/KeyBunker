@@ -30,10 +30,11 @@ export default function Home() {
   useEffect(() => {
     async function verify() {
       const verify = await searchPasswordMaster();
-      setTimeout(() => {
-        setRememberVisible(true);
-      }, 2000); 
-      
+      if (!verify) {
+        setTimeout(() => {
+          setRememberVisible(true);
+        }, 2000);
+      }
     }
     verify();
   }, []);
