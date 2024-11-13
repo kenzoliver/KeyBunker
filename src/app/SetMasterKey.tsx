@@ -35,6 +35,7 @@ export default function UpdatePassword() {
     if (regex.test(data.confirmPasskey)) {
       updatePasswordMaster(data);
       setModalVisible(true);
+      router.navigate('/')
     } else {
       setErrorModal(true);
     }
