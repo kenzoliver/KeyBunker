@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   modalContainer: {
     width: "80%",
     padding: 20,
-    backgroundColor: colors.textOnPrimary,
+    backgroundColor: colors.background,
     borderRadius: 10,
   },
   modalTitle: {
@@ -138,15 +138,17 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
+    color: colors.background_reverse,
   },
   input: {
     width: "100%",
     height: 40,
-    borderColor: colors.textSecondary,
+    borderColor: colors.background_reverse,
     borderWidth: 1,
     borderRadius: 5,
     marginBottom: 10,
     paddingLeft: 10,
+    color: colors.background_reverse
   },
   buttonContainer: {
     flexDirection: "row",
@@ -167,8 +169,5 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 12,
   },
-  sugested: {
-    color: colors.accent,
-    textAlign: "right",
-  },
+  
 });
