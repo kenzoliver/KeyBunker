@@ -14,15 +14,28 @@ import Search from "./components/Search";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import CreateModalPassword from "./components/CreatePassword";
 import Drawer from "./components/Drawer";
-import { fetchAllPasswords } from "./service/database";
+import { fetchAllPasswords, searchPasswordMaster } from "./service/database";
 import { useSimpleStore } from "./store/password";
 import { colors } from "./utils/colors/colors";
+import Remember from "./components/Remember";
 
 export default function Home() {
   const [passwords, setPasswords] = useState<PasswordProps[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
+  const [rememberVisible, setRememberVisible] = useState(false);
   const { value, setValue } = useSimpleStore();
+
+  useEffect(() => {
+    async function verify() {
+      const verify = await searchPasswordMaster();
+      setTimeout(() => {
+        setRememberVisible(true);
+      }, 2000); 
+      
+    }
+    verify();
+  }, []);
 
   useEffect(() => {
     async function setupDatabase() {
@@ -44,13 +57,12 @@ export default function Home() {
     const filteredPasswords = passwords.filter((item) =>
       item.label.toLowerCase().startsWith(name.toLowerCase())
     );
-  
+
     if (name === "") {
       setPasswords(await fetchAllPasswords());
     } else {
       setPasswords(filteredPasswords);
     }
-  
   };
 
   return (
@@ -99,6 +111,10 @@ export default function Home() {
       <Drawer
         isDrawerOpen={drawerVisible}
         onClose={() => setDrawerVisible(false)}
+      />
+      <Remember
+        isRememberModalOpen={rememberVisible}
+        onClose={() => setRememberVisible(false)}
       />
     </View>
   );
