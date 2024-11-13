@@ -1,6 +1,7 @@
+import { colors } from "@/utils/colors/colors";
 import React from "react";
 import { View, TextInput, StyleSheet } from "react-native";
-import colors from "../utils/colors/colors";
+
 
 export default function Search({ passwordFilter }: any) {
   return (

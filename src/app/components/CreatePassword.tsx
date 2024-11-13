@@ -10,8 +10,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import colors from "../utils/colors/colors";
 import { PasswordProps } from "../utils/types/passwordType";
+import { colors } from "@/utils/colors/colors";
 
 type CreateModalPasswordProps = {
   isCreateModalOpen: boolean;

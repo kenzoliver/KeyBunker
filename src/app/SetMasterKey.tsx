@@ -9,12 +9,13 @@ import {
   Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import colors from "./utils/colors/colors";
+
 import { useForm, Controller } from "react-hook-form";
 import { Link, router } from "expo-router";
 import { UpdateMasterKey } from "./utils/types/PasswordUpdate";
 import CopyModal from "./components/CopyModal";
 import { updatePasswordMaster } from "./service/database";
+import { colors } from "./utils/colors/colors";
 
 export default function UpdatePassword() {
   const {

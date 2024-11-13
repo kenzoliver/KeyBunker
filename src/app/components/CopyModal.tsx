@@ -1,6 +1,7 @@
+import { colors } from "@/utils/colors/colors";
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Modal } from "react-native";
-import colors from "../utils/colors/colors";
+
 
 type CopyModalProps = {
   isCopyModalOpen: boolean;

@@ -9,9 +9,10 @@ import {
   Switch,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import colors from "../utils/colors/colors";
+
 import { Link } from "expo-router";
-import { useSimpleStore } from "@/store/password";
+import { colors } from "@/utils/colors/colors";
+
 
 type DrawerProps = {
   isDrawerOpen: boolean;

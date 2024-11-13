@@ -7,11 +7,12 @@ import {
   StatusBar,
   Alert,
 } from "react-native";
-import colors from "./utils/colors/colors";
+
 
 import { useRouter } from "expo-router";
 import { comparePasswordMaster, initializeTables, searchPasswordMaster } from "./service/database";
 import CopyModal from "./components/CopyModal";
+import { colors } from "./utils/colors/colors";
 
 export default function PinLockScreen() {
   const [pin, setPin] = useState<string>("");
@@ -39,6 +40,7 @@ export default function PinLockScreen() {
           router.push("/home");
         } else {
           setModalErrorVisible(true);
+          setPin('')
         }
       } catch (error) {
         console.error(error);
