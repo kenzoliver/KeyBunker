@@ -18,15 +18,17 @@ O **KeyBunker** é um aplicativo simples e eficiente de gerenciamento de senhas,
 
 ## 🚀 Funcionalidades
 
-- **Criar Senhas**: Permite adicionar senhas de forma segura, associando cada uma a um título, chave e login para facilitar a organização.
+- **Armazenar Senhas**: Permite adicionar senhas de forma segura, associando cada uma a um título, chave e login para facilitar a organização.
 - **Listar Senhas**: Exibe todas as senhas armazenadas no banco de dados de forma clara e acessível, com opções para visualizar ou editar informações.
 - **Armazenamento Local com SQLite**: As senhas são armazenadas localmente no dispositivo, garantindo a privacidade e segurança dos dados.
 - **Interface Simples e Intuitiva**: A interface do usuário é limpa, com foco na usabilidade, para uma experiência simples e sem complicação.
+- **Permite criar senhas fortes de forma simples e rápida**: A ferramenta cria senhas fortes de acordo com os parâmetros que você definir.
 
 ## 📱 Como Usar
 
 1. **Instalar o aplicativo**: 
     - baixe o APK no seguinte link:
+      https://github.com/kenzoliver/KeyBunker/blob/main/APK/KeyBunker.apk
 
 2. **Criar uma Senha**:
    - Toque no botão "Adicionar Senha" e insira um título, login e chave para a senha.
