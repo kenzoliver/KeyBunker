@@ -34,7 +34,7 @@ O **KeyBunker** é um aplicativo simples e eficiente de gerenciamento de senhas,
 
 ## 🔐 Segurança
 
-O **KeyBunker** prioriza a segurança das senhas armazenadas. Utilizando o banco de dados SQLite, todas as informações são mantidas localmente no dispositivo, sem a necessidade de conexão com servidores externos. O aplicativo não armazena nem compartilha os dados de forma alguma, garantindo a privacidade dos usuários.
+O **KeyBunker** prioriza a segurança das senhas armazenadas. Utilizando o banco de dados SQLite, todas as informações são mantidas criptografadas localmente no dispositivo, sem a necessidade de conexão com servidores externos. O aplicativo não armazena nem compartilha os dados de forma alguma, garantindo a privacidade dos usuários.
 
 ## 💡 Recursos Futuros
 - **Autenticação por Biometria**: Futuramente, será possível proteger o acesso ao aplicativo com reconhecimento facial ou impressões digitais.
