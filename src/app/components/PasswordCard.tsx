@@ -26,13 +26,9 @@ export default function PasswordCard({
   const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [updateModalVisible, setUpdateModalVisible] = useState(false);
-  const [data, setData] = useState<PasswordProps>({
-    id,
-    login,
-    passkey,
-    label,
-  });
+
   const { value, setValue } = useSimpleStore();
+  
 
   const toggleOptionVisibility = () => {
     setDropdownVisible(!isDropdownVisible);
@@ -51,7 +47,7 @@ export default function PasswordCard({
   };
 
   async function handleDelete() {
-    setValue("swap");
+    setValue();
     setModalDeleteVisible(true);
     if (id) {
       await deletePassword(id);
@@ -150,7 +146,7 @@ export default function PasswordCard({
       />
       <UpdateModalPassword
         isUpdateModalOpen={updateModalVisible}
-        data={data}
+        data={{id,login,label,passkey}}
         onClose={() => setUpdateModalVisible(false)}
       />
     </TouchableOpacity>

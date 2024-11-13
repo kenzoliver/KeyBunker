@@ -12,6 +12,7 @@ import {
 import colors from "../utils/colors/colors";
 import { PasswordProps } from "../utils/types/passwordType";
 import { updatePassword } from "@/service/database";
+import { useSimpleStore } from "@/store/password";
 
 type CreateModalPasswordProps = {
   isUpdateModalOpen: boolean;
@@ -22,23 +23,21 @@ type CreateModalPasswordProps = {
 export default function UpdateModalPassword({
   isUpdateModalOpen,
   onClose,
-  data
+  data,
 }: CreateModalPasswordProps) {
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
-    setValue,
   } = useForm<PasswordProps>();
-
+  const { value, setValue } = useSimpleStore();
   useEffect(() => {
-    if (!isUpdateModalOpen) {
-      reset(data);
-    }
-  }, [isUpdateModalOpen, reset]);
+    reset(data);
+  }, [isUpdateModalOpen, reset, value]);
 
   const handleSave = (data: PasswordProps) => {
+    setValue();
     updatePassword(data);
     onClose();
   };

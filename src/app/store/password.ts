@@ -1,12 +1,12 @@
 import { create } from "zustand";
 
 type SimpleStore = {
-  value: string;
-  setValue: (newValue: string) => void;
+  value: boolean;
+  setValue: () => void;
 };
 
 export const useSimpleStore = create<SimpleStore>((set) => ({
-  value: "",
+  value: true,
 
-  setValue: (newValue) => set({ value: newValue }),
+  setValue: () => set((state) => ({ value: !state.value })),
 }));

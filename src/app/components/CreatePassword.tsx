@@ -38,7 +38,7 @@ export default function CreateModalPassword({
   }, [isCreateModalOpen, reset]);
 
   const handleSave = (data: PasswordProps) => {
-    setValue("swap")
+    setValue()
     insertPasswords(data);
     onClose();
   };

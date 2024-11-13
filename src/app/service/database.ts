@@ -47,6 +47,7 @@ export async function updatePassword(data: PasswordProps) {
   const db = await initializeDatabase();
   const updates = [];
   const passkeycripto = encryptPassword(data.passkey);
+  console.log(data);
 
   updates.push(`label = '${data.label}'`);
   updates.push(`passkey = '${passkeycripto}'`);
