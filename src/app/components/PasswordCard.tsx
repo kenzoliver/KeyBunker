@@ -14,7 +14,7 @@ import { PasswordProps } from "../utils/types/passwordType";
 import { deletePassword } from "@/service/database";
 import UpdateModalPassword from "./UpdatePassword";
 import { useSimpleStore } from "@/store/password";
-import { colors } from "@/utils/colors/colors";
+import colors from "@/utils/colors/colors";
 
 export default function PasswordCard({
   id,

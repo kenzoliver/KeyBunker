@@ -14,7 +14,8 @@ import Slider from "@react-native-community/slider";
 import { Link } from "expo-router";
 import { useEffect, useState } from "react";
 import CopyModal from "./components/CopyModal";
-import { colors } from "./utils/colors/colors";
+import colors from "./utils/colors/colors";
+
 
 export default function GeneratorPassword() {
   const [password, setPassword] = useState<string>("");

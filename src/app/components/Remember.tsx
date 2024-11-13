@@ -11,8 +11,9 @@ import {
   View,
 } from "react-native";
 
-import { colors } from "@/utils/colors/colors";
+
 import { router } from "expo-router";
+import colors from "@/utils/colors/colors";
 
 type RememberProps = {
   isRememberModalOpen: boolean;

@@ -12,7 +12,8 @@ import {
 import { useRouter } from "expo-router";
 import { comparePasswordMaster, initializeTables, searchPasswordMaster } from "./service/database";
 import CopyModal from "./components/CopyModal";
-import { colors } from "./utils/colors/colors";
+import colors from "./utils/colors/colors";
+
 
 export default function PinLockScreen() {
   const [pin, setPin] = useState<string>("");

@@ -16,8 +16,9 @@ import CreateModalPassword from "./components/CreatePassword";
 import Drawer from "./components/Drawer";
 import { fetchAllPasswords, searchPasswordMaster } from "./service/database";
 import { useSimpleStore } from "./store/password";
-import { colors } from "./utils/colors/colors";
+
 import Remember from "./components/Remember";
+import colors from "./utils/colors/colors";
 
 export default function Home() {
   const [passwords, setPasswords] = useState<PasswordProps[]>([]);

@@ -11,8 +11,9 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 import { Link } from "expo-router";
-import { colors } from "@/utils/colors/colors";
+
 import { searchPasswordMaster } from "@/service/database";
+import colors from "@/utils/colors/colors";
 
 
 type DrawerProps = {
@@ -66,7 +67,7 @@ export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
           </View>
 
           {/* Freeze */}
-          <View style={styles.switchContainer}>
+          {/* <View style={styles.switchContainer}>
             <Icon
               name="nights-stay"
               size={24}
@@ -82,7 +83,7 @@ export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
               onValueChange={() => {}}
             />
             <Icon name="wb-sunny" size={24} color={colors.background_reverse} />
-          </View>
+          </View> */}
 
           <View style={styles.githubContainer}>
             <TouchableOpacity onPress={openGithubRepo} style={styles.menuItem}>

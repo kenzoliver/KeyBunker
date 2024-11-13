@@ -15,7 +15,8 @@ import { Link, router } from "expo-router";
 import { UpdateMasterKey } from "./utils/types/PasswordUpdate";
 import CopyModal from "./components/CopyModal";
 import { searchPasswordMaster, updatePasswordMaster } from "./service/database";
-import { colors } from "./utils/colors/colors";
+import colors from "./utils/colors/colors";
+
 
 export default function UpdatePassword() {
   const {
