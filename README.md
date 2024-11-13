@@ -16,3 +16,7 @@ KeyBunker é um aplicativo simples de gerenciamento de senhas desenvolvido com R
 - **Listar Senhas**: Exibir todas as senhas armazenadas no banco de dados local.
 - **Armazenamento Local**: Utiliza o SQLite para persistir os dados de senhas.
 - **Interface Simples**: Interface limpa e fácil de usar para interação com o usuário.
+
+
+Teste video:
+https://github.com/kenzoliver/KeyBunker/blob/main/Adivinha%202024-11-08%2020-05-49.mp4
