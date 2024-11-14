@@ -120,7 +120,7 @@ export default function Home() {
         ) : (
           <View style={styles.notfoundcontainer}>
             <Text style={styles.messageText}>
-              Ainda Não há, nenhuma senha, crie uma!
+              Ainda Não há nenhuma senha, crie uma!
             </Text>
           </View>
         )}
