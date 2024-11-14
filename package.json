@@ -17,11 +17,11 @@
   "dependencies": {
     "@react-native-community/slider": "^4.5.5",
     "bcryptjs": "^2.4.3",
-    "expo": "^51.0.38",
+    "expo": "^52.0.6",
     "expo-constants": "~16.0.2",
     "expo-linking": "~6.3.1",
     "expo-router": "^3.5.23",
-    "expo-sqlite": "^14.0.6",
+    "expo-sqlite": "^15.0.3",
     "expo-status-bar": "~1.12.1",
     "keybunker": "file:",
     "react": "18.2.0",
