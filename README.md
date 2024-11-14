@@ -48,6 +48,13 @@ O **KeyBunker** prioriza a segurança das senhas armazenadas. Utilizando o banco
 - **Autenticação por Biometria**: Futuramente, será possível proteger o acesso ao aplicativo com reconhecimento facial ou impressões digitais.
 - **Backup de Dados**: Funcionalidade para backup seguro de senhas em nuvem.
 
+## 📱 Video tutorial!!
+  
+
+https://github.com/user-attachments/assets/60434bfb-a5cf-41fc-a311-126ad43ddf16
+
+
+
 ## 📋 License
 
 Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
