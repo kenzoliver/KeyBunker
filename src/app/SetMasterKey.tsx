@@ -33,7 +33,7 @@ export default function UpdatePassword() {
   async function onSubmit(data: UpdateMasterKey) {
     const regex = /^\d{6}$/;
     if (regex.test(data.confirmPasskey)) {
-      updatePasswordMaster(data);
+      await updatePasswordMaster(data);
       setModalVisible(true);
       router.navigate('/')
     } else {
