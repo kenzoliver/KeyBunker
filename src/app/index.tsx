@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  BackHandler,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -73,6 +74,15 @@ export default function Home() {
     
     setModalVisible(true);
   };
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      BackHandler.exitApp(); 
+      return true; 
+    });
+
+    return () => backHandler.remove();
+  }, []);
 
   const passwordFilter = async (name: string) => {
     const filteredPasswords = passwords.filter((item) =>

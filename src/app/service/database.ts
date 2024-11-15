@@ -2,7 +2,7 @@ import * as SQLite from "expo-sqlite";
 import { Buffer } from "buffer";
 import { PasswordProps } from "../utils/types/passwordType";
 import { UpdateMasterKey } from "../utils/types/PasswordUpdate";
-import bcrypt from "bcryptjs";
+
 
 async function initializeDatabase() {
   const db = SQLite.openDatabaseAsync("keybunker.db");

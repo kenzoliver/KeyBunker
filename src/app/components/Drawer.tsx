@@ -70,7 +70,7 @@ export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
           </View>
 
           {/* Freeze */}
-          <View style={styles.switchContainer}>
+          {/* <View style={styles.switchContainer}>
             <Icon
               name="nights-stay"
               size={24}
@@ -86,7 +86,7 @@ export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
               onValueChange={() => {}}
             />
             <Icon name="wb-sunny" size={24} color={colors.background_reverse} />
-          </View>
+          </View> */}
           <View style={styles.githubContainer}>
             <TouchableOpacity onPress={openGithubRepo} style={styles.exit}>
               <Icon name="code" size={24} color={colors.background_reverse} />
