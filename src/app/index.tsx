@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  BackHandler,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -74,6 +75,15 @@ export default function Home() {
     setModalVisible(true);
   };
 
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      BackHandler.exitApp(); 
+      return true; 
+    });
+
+    return () => backHandler.remove();
+  }, []);
+
   const passwordFilter = async (name: string) => {
     const filteredPasswords = passwords.filter((item) =>
       item.label.toLowerCase().startsWith(name.toLowerCase())
@@ -120,7 +130,7 @@ export default function Home() {
         ) : (
           <View style={styles.notfoundcontainer}>
             <Text style={styles.messageText}>
-              Ainda Não há, nenhuma senha, crie uma!
+              Ainda Não há nenhuma senha, crie uma!
             </Text>
           </View>
         )}

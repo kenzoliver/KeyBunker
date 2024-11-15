@@ -13,8 +13,8 @@ O **KeyBunker** é um aplicativo simples e eficiente de gerenciamento de senhas,
 - **React Native**: Framework poderoso para o desenvolvimento de aplicativos móveis nativos usando JavaScript e React.
 - **Expo**: Conjunto de ferramentas que simplifica o processo de desenvolvimento de apps React Native, oferecendo recursos prontos para uso e uma experiência de desenvolvimento mais rápida.
 - **SQLite**: Banco de dados leve e robusto para armazenar dados localmente no dispositivo.
-- **TypeScript**: Linguagem que adiciona tipagem estática ao JavaScript, tornando o código mais seguro e fácil de manter.
-- **React Navigation**: Biblioteca para navegação eficiente e intuitiva dentro do app.
+- **TypeScript**: Linguagem que adiciona tipagem estática ao JavaScript/Typescript, tornando o código mais seguro e fácil de manter.
+
 
 ## 🚀 Funcionalidades
 
@@ -55,10 +55,6 @@ https://github.com/user-attachments/assets/60434bfb-a5cf-41fc-a311-126ad43ddf16
 
 
 
-## 📋 License
 
-Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
----
 
 Sinta-se à vontade para contribuir ou relatar problemas. O **KeyBunker** é projetado para ser simples, seguro e útil, oferecendo uma solução prática para gerenciamento de senhas em dispositivos móveis! 🚀

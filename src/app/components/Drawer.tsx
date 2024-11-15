@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Linking,
   Switch,
+  BackHandler,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
@@ -14,7 +15,6 @@ import { Link } from "expo-router";
 
 import { searchPasswordMaster } from "@/service/database";
 import colors from "@/utils/colors/colors";
-
 
 type DrawerProps = {
   isDrawerOpen: boolean;
@@ -27,16 +27,18 @@ export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
   useEffect(() => {
     async function verify() {
       const verify = await searchPasswordMaster();
-      if(verify){
-
-        setTextLabel("Redefina")
-      }else{
-
-        setTextLabel("Defina")
+      if (verify) {
+        setTextLabel("Redefina");
+      } else {
+        setTextLabel("Defina");
       }
     }
     verify();
-  },[]);
+  }, []);
+
+  function exit() {
+    BackHandler.exitApp();
+  }
 
   const openGithubRepo = () => {
     Linking.openURL("https://github.com/kenzoliver/KeyBunker");
@@ -64,6 +66,7 @@ export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
               <Icon name="lock" size={24} color={colors.background_reverse} />
               <Text style={styles.menuItemText}>{textLabel} Senha Master</Text>
             </Link>
+           
           </View>
 
           {/* Freeze */}
@@ -84,11 +87,13 @@ export default function Drawer({ isDrawerOpen, onClose }: DrawerProps) {
             />
             <Icon name="wb-sunny" size={24} color={colors.background_reverse} />
           </View> */}
-
           <View style={styles.githubContainer}>
-            <TouchableOpacity onPress={openGithubRepo} style={styles.menuItem}>
+            <TouchableOpacity onPress={openGithubRepo} style={styles.exit}>
               <Icon name="code" size={24} color={colors.background_reverse} />
               <Text style={styles.link}>Acesse o Repositório no GitHub</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={exit} style={styles.menuItem}>
+              <Text style={styles.out}>Sair</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -120,8 +125,21 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: colors.background_reverse,
   },
+  exit:{
+    paddingLeft: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.background_reverse,
+  },
   menuItemText: {
     paddingBottom: 10,
+    fontSize: 20,
+    color: colors.background_reverse,
+  },
+  out: {
     fontSize: 20,
     color: colors.background_reverse,
   },
@@ -132,7 +150,7 @@ const styles = StyleSheet.create({
   },
   githubContainer: {
     position: "absolute",
-    bottom: 20,
+    bottom: 10,
     width: "100%",
     paddingHorizontal: 20,
   },
@@ -140,7 +158,7 @@ const styles = StyleSheet.create({
     gap: 5,
     width: "85%",
     position: "absolute",
-    bottom: 80,
+    bottom: 120,
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 15,

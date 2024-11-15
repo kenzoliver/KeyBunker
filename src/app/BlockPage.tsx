@@ -5,14 +5,12 @@ import {
   View,
   TouchableOpacity,
   StatusBar,
-  Alert,
+  BackHandler
 } from "react-native";
 
 import { useRouter } from "expo-router";
 import {
   comparePasswordMaster,
-  initializeTables,
-  searchPasswordMaster,
 } from "./service/database";
 import CopyModal from "./components/CopyModal";
 import colors from "./utils/colors/colors";
@@ -32,6 +30,15 @@ export default function PinLockScreen() {
       setPin(pin + digit);
     }
   };
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      BackHandler.exitApp(); 
+      return true; 
+    });
+
+    return () => backHandler.remove();
+  }, []);
 
   const handleDelete = () => {
     setPin(pin.slice(0, -1));

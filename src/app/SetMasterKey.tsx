@@ -15,6 +15,7 @@ import { UpdateMasterKey } from "./utils/types/PasswordUpdate";
 import CopyModal from "./components/CopyModal";
 import { searchPasswordMaster, updatePasswordMaster } from "./service/database";
 import colors from "./utils/colors/colors";
+import { useBlock } from "./store/block";
 
 export default function UpdatePassword() {
   const {
@@ -29,13 +30,17 @@ export default function UpdatePassword() {
   const [textheader, setTextHeader] = useState<string>("");
   const [textlabel, setTextLabel] = useState<string>("");
   const [buttonLabel, setButtonLabel] = useState<string>("");
+  const { free, setBlock } = useBlock();
 
   async function onSubmit(data: UpdateMasterKey) {
     const regex = /^\d{6}$/;
     if (regex.test(data.confirmPasskey)) {
       await updatePasswordMaster(data);
+      setBlock(true);
+      setTimeout(() => {
+        router.navigate('/')
+      }, 1000);
       setModalVisible(true);
-      router.navigate('/')
     } else {
       setErrorModal(true);
     }
