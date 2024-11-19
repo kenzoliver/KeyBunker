@@ -32,7 +32,8 @@ export async function insertPasswords(data: PasswordProps) {
   const db = await initializeDatabase();
   const passkeycripto = encryptPassword(data.passkey);
   await db.execAsync(`
-    INSERT INTO passwords (label, passkey, login) VALUES ('${data.label}', '${passkeycripto}', '${data.login}');
+    INSERT INTO passwords (label, passkey, login) VALUES
+     ('${data.label}', '${passkeycripto}', '${data.login}');
   `);
 }
 
