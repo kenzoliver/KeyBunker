@@ -26,9 +26,10 @@ O **KeyBunker** é um aplicativo simples e eficiente de gerenciamento de senhas,
 
 ## 📱 Como Usar
 
-1. **Instalar o aplicativo**: 
-    - baixe o APK no seguinte link:
-      https://github.com/kenzoliver/KeyBunker/blob/main/APK/KeyBunker.apk
+## 1. **Instalar o aplicativo**
+   - Baixe o APK no seguinte link:  
+     <a href="https://github.com/kenzoliver/KeyBunker/blob/main/APK/KeyBunker.apk" download>KeyBunker.apk</a>
+   
 
 2. **Criar uma Senha**:
    - Toque no botão "Adicionar Senha" e insira um título, login e chave para a senha.
